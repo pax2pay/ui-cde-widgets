@@ -5,8 +5,50 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
+import { Card } from "@pax2pay/model-cde";
+import { Error } from "gracely";
+import { Message } from "./components/iframe/key-generate/Message";
+export { Card } from "@pax2pay/model-cde";
+export { Error } from "gracely";
+export { Message } from "./components/iframe/key-generate/Message";
 export namespace Components {
     interface AppHome {
+    }
+    interface P2pCardButton {
+        "card"?: Card.Token | Error;
+        "cardHolderName"?: string;
+        "height": string;
+        "nameAlreadyEncoded": boolean;
+        "task": "print" | "pdf";
+        "width": string;
+    }
+    interface P2pCardDisplay {
+        "card"?: Card.Token | Error;
+        "cardPart": "pan" | "csc" | "expires";
+        "feature"?: "copy";
+        "format"?: "plain" | "labelled";
+    }
+    interface P2pCardIframe {
+        "buttons": boolean;
+        "cardHolderName"?: string;
+        "height"?: string;
+        "nameAlreadyEncoded": boolean;
+        "token"?: Card.Token | Error;
+        "width"?: string;
+    }
+    interface P2pCardInput {
+    }
+    interface P2pCardKeyGenerate {
+        "generate": () => Promise<Message>;
+        "parent"?: string;
+    }
+    interface P2pVirtualCard {
+        "card"?: Card.Token | Error;
+        "cardHolderName"?: string;
+        "company"?: string;
+        "height": string;
+        "nameAlreadyEncoded": boolean;
+        "width": string;
     }
     interface TemplatePortal {
     }
@@ -18,6 +60,42 @@ declare global {
         prototype: HTMLAppHomeElement;
         new (): HTMLAppHomeElement;
     };
+    interface HTMLP2pCardButtonElement extends Components.P2pCardButton, HTMLStencilElement {
+    }
+    var HTMLP2pCardButtonElement: {
+        prototype: HTMLP2pCardButtonElement;
+        new (): HTMLP2pCardButtonElement;
+    };
+    interface HTMLP2pCardDisplayElement extends Components.P2pCardDisplay, HTMLStencilElement {
+    }
+    var HTMLP2pCardDisplayElement: {
+        prototype: HTMLP2pCardDisplayElement;
+        new (): HTMLP2pCardDisplayElement;
+    };
+    interface HTMLP2pCardIframeElement extends Components.P2pCardIframe, HTMLStencilElement {
+    }
+    var HTMLP2pCardIframeElement: {
+        prototype: HTMLP2pCardIframeElement;
+        new (): HTMLP2pCardIframeElement;
+    };
+    interface HTMLP2pCardInputElement extends Components.P2pCardInput, HTMLStencilElement {
+    }
+    var HTMLP2pCardInputElement: {
+        prototype: HTMLP2pCardInputElement;
+        new (): HTMLP2pCardInputElement;
+    };
+    interface HTMLP2pCardKeyGenerateElement extends Components.P2pCardKeyGenerate, HTMLStencilElement {
+    }
+    var HTMLP2pCardKeyGenerateElement: {
+        prototype: HTMLP2pCardKeyGenerateElement;
+        new (): HTMLP2pCardKeyGenerateElement;
+    };
+    interface HTMLP2pVirtualCardElement extends Components.P2pVirtualCard, HTMLStencilElement {
+    }
+    var HTMLP2pVirtualCardElement: {
+        prototype: HTMLP2pVirtualCardElement;
+        new (): HTMLP2pVirtualCardElement;
+    };
     interface HTMLTemplatePortalElement extends Components.TemplatePortal, HTMLStencilElement {
     }
     var HTMLTemplatePortalElement: {
@@ -26,16 +104,63 @@ declare global {
     };
     interface HTMLElementTagNameMap {
         "app-home": HTMLAppHomeElement;
+        "p2p-card-button": HTMLP2pCardButtonElement;
+        "p2p-card-display": HTMLP2pCardDisplayElement;
+        "p2p-card-iframe": HTMLP2pCardIframeElement;
+        "p2p-card-input": HTMLP2pCardInputElement;
+        "p2p-card-key-generate": HTMLP2pCardKeyGenerateElement;
+        "p2p-virtual-card": HTMLP2pVirtualCardElement;
         "template-portal": HTMLTemplatePortalElement;
     }
 }
 declare namespace LocalJSX {
     interface AppHome {
     }
+    interface P2pCardButton {
+        "card"?: Card.Token | Error;
+        "cardHolderName"?: string;
+        "height"?: string;
+        "nameAlreadyEncoded"?: boolean;
+        "task"?: "print" | "pdf";
+        "width"?: string;
+    }
+    interface P2pCardDisplay {
+        "card"?: Card.Token | Error;
+        "cardPart"?: "pan" | "csc" | "expires";
+        "feature"?: "copy";
+        "format"?: "plain" | "labelled";
+    }
+    interface P2pCardIframe {
+        "buttons"?: boolean;
+        "cardHolderName"?: string;
+        "height"?: string;
+        "nameAlreadyEncoded"?: boolean;
+        "token"?: Card.Token | Error;
+        "width"?: string;
+    }
+    interface P2pCardInput {
+    }
+    interface P2pCardKeyGenerate {
+        "parent"?: string;
+    }
+    interface P2pVirtualCard {
+        "card"?: Card.Token | Error;
+        "cardHolderName"?: string;
+        "company"?: string;
+        "height"?: string;
+        "nameAlreadyEncoded"?: boolean;
+        "width"?: string;
+    }
     interface TemplatePortal {
     }
     interface IntrinsicElements {
         "app-home": AppHome;
+        "p2p-card-button": P2pCardButton;
+        "p2p-card-display": P2pCardDisplay;
+        "p2p-card-iframe": P2pCardIframe;
+        "p2p-card-input": P2pCardInput;
+        "p2p-card-key-generate": P2pCardKeyGenerate;
+        "p2p-virtual-card": P2pVirtualCard;
         "template-portal": TemplatePortal;
     }
 }
@@ -44,6 +169,12 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "app-home": LocalJSX.AppHome & JSXBase.HTMLAttributes<HTMLAppHomeElement>;
+            "p2p-card-button": LocalJSX.P2pCardButton & JSXBase.HTMLAttributes<HTMLP2pCardButtonElement>;
+            "p2p-card-display": LocalJSX.P2pCardDisplay & JSXBase.HTMLAttributes<HTMLP2pCardDisplayElement>;
+            "p2p-card-iframe": LocalJSX.P2pCardIframe & JSXBase.HTMLAttributes<HTMLP2pCardIframeElement>;
+            "p2p-card-input": LocalJSX.P2pCardInput & JSXBase.HTMLAttributes<HTMLP2pCardInputElement>;
+            "p2p-card-key-generate": LocalJSX.P2pCardKeyGenerate & JSXBase.HTMLAttributes<HTMLP2pCardKeyGenerateElement>;
+            "p2p-virtual-card": LocalJSX.P2pVirtualCard & JSXBase.HTMLAttributes<HTMLP2pVirtualCardElement>;
             "template-portal": LocalJSX.TemplatePortal & JSXBase.HTMLAttributes<HTMLTemplatePortalElement>;
         }
     }
