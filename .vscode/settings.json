@@ -1,0 +1,66 @@
+{
+	// Update search.exclude if you add a pattern to files.exclude
+	"files.exclude": {
+		".*": true,
+		"*.json": true,
+		"dist": true,
+		"README.md": true,
+		"LICENSE": true,
+		"CODEOWNERS": true,
+		"tsconfig.*": true,
+		"node_modules": true,
+		"*.code-workspace": true,
+		"*.config.js": true,
+		"*.toml": true,
+		"*.config.ts": true,
+		"www/": true
+	},
+	// Make it possible to open excluded files with Ctrl + P
+	"search.exclude": {
+		".*": false,
+		"*.json": false,
+		"dist": false,
+		"README.md": false,
+		"LICENSE": false,
+		"CODEOWNERS": false,
+		"tsconfig.*": false,
+		"node_modules": false,
+		"*.code-workspace": false,
+		"*.config.js": false,
+		"*.toml": false,
+		"*.config.ts": false,
+		"www/": false
+	},
+	"files.insertFinalNewline": true,
+	"editor.tabSize": 2,
+	"editor.detectIndentation": false,
+	"editor.insertSpaces": false,
+	"editor.formatOnSave": true,
+	"editor.formatOnPaste": true,
+	"editor.codeActionsOnSave": {
+		"source.fixAll.eslint": true,
+		"eslint.autoFixOnSave": true
+	},
+	"eslint.format.enable": true,
+	"eslint.lintTask.enable": true,
+	"javascript.format.enable": false,
+	"typescript.format.enable": false,
+	"cSpell.words": [
+		"authly",
+		"cloudly",
+		"cryptly",
+		"flagly",
+		"gracely",
+		"isoly",
+		"langly",
+		"paramly",
+		"persistly",
+		"selectivly",
+		"servly",
+		"servly-azure",
+		"smoothly",
+		"tidily",
+		"transactly",
+		"uply"
+	]
+}

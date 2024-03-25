@@ -1,0 +1,33 @@
+
+input,
+button {
+	color: unset;
+	background-color: inherit;
+	border-color: inherit;
+}
+
+html {
+	font-family: var(--smoothly-font-family);
+	line-height: 1.5;
+}
+
+html>body {
+	z-index: 0;
+}
+
+a,
+a:visited {
+	color: inherit;
+}
+
+a:hover {
+	cursor: pointer;
+}
+
+[color=default] {
+	--smoothly-color: red;
+	--smoothly-color-contrast: green;
+	--smoothly-color-shade: pink;
+	--smoothly-color-tint: blue;
+}
+

@@ -1,0 +1,603 @@
+@import "./ionic-normalize.css";
+
+[hidden] {
+	display: none !important;
+}
+
+body {
+	line-height: 1.5;
+}
+
+html {
+	font-family: var(--smoothly-font-family);
+}
+
+smoothly-app>smoothly-notifier>main {
+	background-color: rgb(var(--smoothly-default-color));
+}
+
+*,
+::before,
+::after {
+	box-sizing: border-box;
+}
+
+smoothly-notifier input,
+smoothly-notifier button {
+	color: unset;
+	background-color: inherit;
+	border-color: inherit;
+}
+
+smoothly-notifier a,
+smoothly-notifier a:hover,
+smoothly-notifier a:visited {
+	color: inherit;
+}
+
+smoothly-notifier a:hover {
+	cursor: pointer;
+}
+
+smoothly-notifier [color=default] {
+	--smoothly-color: var(--smoothly-default-color);
+	--smoothly-color-contrast: var(--smoothly-default-contrast);
+	--smoothly-color-shade: var(--smoothly-default-shade);
+	--smoothly-color-tint: var(--smoothly-default-tint);
+}
+
+smoothly-notifier [color=primary] {
+	--smoothly-color: var(--smoothly-primary-color);
+	--smoothly-color-contrast: var(--smoothly-primary-contrast);
+	--smoothly-color-shade: var(--smoothly-primary-shade);
+	--smoothly-color-tint: var(--smoothly-primary-tint);
+}
+
+smoothly-notifier [color=secondary] {
+	--smoothly-color: var(--smoothly-secondary-color);
+	--smoothly-color-contrast: var(--smoothly-secondary-contrast);
+	--smoothly-color-shade: var(--smoothly-secondary-shade);
+	--smoothly-color-tint: var(--smoothly-secondary-tint);
+}
+
+smoothly-notifier [color=tertiary] {
+	--smoothly-color: var(--smoothly-tertiary-color);
+	--smoothly-color-contrast: var(--smoothly-tertiary-contrast);
+	--smoothly-color-shade: var(--smoothly-tertiary-shade);
+	--smoothly-color-tint: var(--smoothly-tertiary-tint);
+}
+
+smoothly-notifier [color=success] {
+	--smoothly-color: var(--smoothly-success-color);
+	--smoothly-color-contrast: var(--smoothly-default-color);
+	--smoothly-color-shade: var(--smoothly-success-shade);
+	--smoothly-color-tint: var(--smoothly-success-tint);
+}
+
+smoothly-notifier [color=warning] {
+	--smoothly-color: var(--smoothly-warning-color);
+	--smoothly-color-contrast: var(--smoothly-warning-contrast);
+	--smoothly-color-shade: var(--smoothly-warning-shade);
+	--smoothly-color-tint: var(--smoothly-warning-tint);
+}
+
+smoothly-notifier [color=danger] {
+	--smoothly-color: var(--smoothly-danger-color);
+	--smoothly-color-contrast: var(--smoothly-danger-contrast);
+	--smoothly-color-shade: var(--smoothly-danger-shade);
+	--smoothly-color-tint: var(--smoothly-danger-tint);
+}
+
+smoothly-notifier [color=light] {
+	--smoothly-color: var(--smoothly-light-color);
+	--smoothly-color-contrast: var(--smoothly-light-contrast);
+	--smoothly-color-shade: var(--smoothly-light-shade);
+	--smoothly-color-tint: var(--smoothly-light-tint);
+}
+
+smoothly-notifier [color=medium] {
+	--smoothly-color: var(--smoothly-medium-color);
+	--smoothly-color-contrast: var(--smoothly-medium-contrast);
+	--smoothly-color-shade: var(--smoothly-medium-shade);
+	--smoothly-color-tint: var(--smoothly-medium-tint);
+}
+
+smoothly-notifier [color=dark] {
+	--smoothly-color: var(--smoothly-dark-color);
+	--smoothly-color-contrast: var(--smoothly-dark-contrast);
+	--smoothly-color-shade: var(--smoothly-dark-shade);
+	--smoothly-color-tint: var(--smoothly-dark-tint);
+}
+
+html smoothly-notifier,
+smoothly-notifier [color]:not([fill]),
+smoothly-notifier [fill=default] {
+	color: rgb(var(--smoothly-color-contrast));
+	stroke: rgb(var(--smoothly-color-contrast));
+	fill: rgb(var(--smoothly-color-contrast));
+	background: rgb(var(--smoothly-color));
+	border-color: transparent;
+}
+
+smoothly-notifier [fill=outline] {
+	color: rgb(var(--smoothly-color));
+	stroke: rgb(var(--smoothly-color));
+	fill: rgb(var(--smoothly-color));
+	background: transparent;
+	border-color: rgb(var(--smoothly-color));
+}
+
+smoothly-notifier [fill=clear] {
+	color: rgb(var(--smoothly-color));
+	stroke: rgb(var(--smoothly-color));
+	fill: rgb(var(--smoothly-color));
+	background: transparent;
+	border-color: transparent;
+}
+
+smoothly-notifier [fill=solid] {
+	color: rgb(var(--smoothly-color-contrast));
+	stroke: rgb(var(--smoothly-color-contrast));
+	fill: rgb(var(--smoothly-color-contrast));
+	background: rgb(var(--smoothly-color));
+	border-color: rgb(var(--smoothly-color));
+}
+
+:root {
+	--smoothly-semitransparent: .8;
+
+	--smoothly-default-color: 255, 255, 255;
+	--smoothly-default-contrast: 46, 52, 54;
+	--smoothly-default-shade: 234, 234, 231;
+	--smoothly-default-tint: 136, 138, 133;
+
+	--smoothly-primary-color: 206, 36, 067;
+	--smoothly-primary-contrast: 255, 255, 255;
+	--smoothly-primary-shade: 118, 20, 38;
+	--smoothly-primary-tint: 238, 155, 171;
+
+	--smoothly-secondary-color: 108, 117, 125;
+	--smoothly-secondary-contrast: 240, 243, 255;
+	--smoothly-secondary-shade: 61, 67, 71;
+	--smoothly-secondary-tint: 189, 194, 198;
+
+	--smoothly-tertiary-color: 52, 101, 164;
+	--smoothly-tertiary-contrast: 238, 238, 238;
+	--smoothly-tertiary-shade: 32, 74, 135;
+	--smoothly-tertiary-tint: 114, 159, 207;
+
+	--smoothly-medium-color: 112, 112, 112;
+	--smoothly-medium-contrast: 238, 238, 236;
+	--smoothly-medium-shade: 46, 52, 54;
+	--smoothly-medium-tint: 255, 255, 255;
+
+	--smoothly-success-color: 40, 167, 69;
+	--smoothly-success-contrast: 32, 52, 32;
+	--smoothly-success-shade: 21, 86, 36;
+	--smoothly-success-tint: 135, 127, 156;
+
+	--smoothly-warning-color: 242, 183, 3;
+	--smoothly-warning-contrast: 17, 21, 0;
+	--smoothly-warning-shade: 141, 107, 2;
+	--smoothly-warning-tint: 254, 227, 144;
+
+	--smoothly-danger-color: 204, 0, 0;
+	--smoothly-danger-contrast: 242, 242, 242;
+	--smoothly-danger-shade: 164, 00, 00;
+	--smoothly-danger-tint: 239, 41, 41;
+
+	--smoothly-dark-color: 52, 58, 64;
+	--smoothly-dark-contrast: 46, 52, 54;
+	--smoothly-dark-shade: 0, 0, 0;
+	--smoothly-dark-tint: 123, 135, 148;
+
+	--smoothly-light-color: 248, 249, 250;
+	--smoothly-light-contrast: 238, 238, 236;
+	--smoothly-light-shade: 219, 224, 229;
+	--smoothly-light-tint: 255, 255, 255;
+
+	--smoothly-color-contrast: 46, 52, 54;
+
+	--smoothly-shadow: 0 0 4px 2px rgba(var(--smoothly-light-color), 0.25);
+	--smoothly-shadow-strong: 0 0 4px 4px rgba(var(--smoothly-light-color), 0.25);
+	--border-radius: 0.25rem;
+	--input-width: 18rem;
+	--table-width: 100%;
+}
+
+smoothly-app>header>h1>a,
+smoothly-app>smoothly-notifier>header>h1>a {
+	color: transparent;
+	width: 10em;
+	height: 100%;
+	background-image: url("../logo/pax2pay.svg");
+	background-repeat: no-repeat;
+	background-size: contain;
+}
+
+smoothly-app>smoothly-notifier>header>h1>a:hover {
+	color: transparent;
+}
+
+smoothly-selector>div>nav {
+	overflow-y: scroll;
+	max-height: 20em;
+	background-color: rgb(var(--smoothly-default-color));
+	box-sizing: border-box;
+	border: 1px solid rgba(0, 0, 0, 0.15);
+	border-radius: 0.25rem;
+}
+
+smoothly-selector>main {
+	font-size: 1rem;
+	line-height: 1.5;
+	padding: 0.75rem;
+	white-space: nowrap;
+}
+
+p2p-user-table-row-expansion smoothly-selector>main {
+	padding: 0.4rem;
+}
+
+smoothly-input {
+	white-space: nowrap;
+}
+
+smoothly-selector>aside>button {
+	border: none;
+	background-color: transparent;
+}
+
+smoothly-input-month>smoothly-selector>main {
+	padding: 0;
+}
+
+.sc-smoothly-selector-h>aside.sc-smoothly-selector {
+	position: absolute;
+	top: -2.5em;
+	left: 15em;
+	height: 30px;
+}
+
+smoothly-selector>div>nav {
+	width: 100%;
+}
+
+smoothly-input-month smoothly-selector>div>nav {
+	width: auto;
+}
+
+input.sc-smoothly-input {
+	cursor: default;
+	color: rgb(var(--smoothly-default-contrast));
+	padding: 1.2em 0.3em 0.2em 0.35em;
+}
+
+smoothly-table-expandable-cell input.sc-smoothly-input {
+	padding: 0;
+	width: 6em;
+}
+
+smoothly-table-row {
+	border-bottom: none;
+}
+
+smoothly-submit>button {
+	border: none;
+	background-color: transparent;
+}
+
+svg:hover {
+	cursor: pointer;
+}
+
+p2p-display-schedule smoothly-table.sc-p2p-payment-schedule-table,
+.sc-smoothly-table-h {
+	border: 2px solid rgb(var(--smoothly-dark-color), 0.5);
+}
+
+p2p-display-schedule .sc-p2p-payment-schedule-table-row-h {
+	border: 1px solid rgb(var(--smoothly-dark-color), 0.5)
+}
+
+p2p-pdf-button>smoothly-submit>button,
+p2p-print-button>smoothly-submit>button {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	margin: auto;
+}
+
+p2p-payment-batch-create button {
+	color: rgb(var(--smoothly-default-color));
+}
+
+p2p-payment-batch-item smoothly-table.sc-p2p-schedule-table,
+p2p-payment-batch-item .sc-p2p-table-row-h:hover {
+	background-color: transparent;
+}
+
+smoothly-notification>p {
+	margin-top: 1rem;
+	margin: 1rem;
+}
+
+.sc-smoothly-notifier-h>aside.sc-smoothly-notifier {
+	justify-content: center;
+}
+
+p2p-card-create main.sc-p2p-scheduled-payment-table {
+	column-gap: 3em;
+}
+
+.sc-smoothly-tab-h:not([open])>label.sc-smoothly-tab {
+	color: rgb(var(--smoothly-default-contrast));
+	background-color: transparent;
+}
+
+.sc-smoothly-tab-h[open] {
+	border-bottom: 3px solid rgb(var(--smoothly-primary-color));
+	box-sizing: border-box;
+	margin-bottom: -3px;
+}
+
+.sc-smoothly-tab-h>label.sc-smoothly-tab {
+	background-color: transparent;
+	margin: .5em 0;
+	width: auto;
+}
+
+div.sc-smoothly-tab {
+	background-color: rgb(var(--smoothly-default-color));
+	padding: 0;
+}
+
+label.sc-smoothly-tab {
+	padding: 0;
+}
+
+smoothly-input-date>div {
+	top: 0;
+	left: 0;
+}
+
+@media (max-width: 360px) {
+	.sc-smoothly-table-cell-h {
+		padding: 0;
+	}
+
+	button.sc-smoothly-submit {
+		font-size: 100%;
+	}
+}
+
+@media (max-width: 768px) {
+	div.sc-smoothly-tab {
+		display: grid;
+		grid-template-columns: 5fr
+	}
+}
+
+smoothly-checkbox .sc-smoothly-icon-h {
+	stroke: rgb(var(--smoothly-success-color));
+}
+
+.sc-smoothly-button-h>button.sc-smoothly-button,
+[type="button"].sc-smoothly-button-h>a.sc-smoothly-button {
+	width: 100%;
+	height: 100%;
+	font-size: 100%;
+	padding: 0.7rem 0.8rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+smoothly-submit {
+	padding: 0.5rem;
+}
+
+smoothly-button>button,
+smoothly-submit>button {
+	cursor: pointer;
+}
+
+smoothly-input-date-range smoothly-input {
+	border: none;
+}
+
+smoothly-input-date-range section {
+	width: 20rem;
+	border: 1px solid rgb(var(--smoothly-light-shade));
+}
+
+smoothly-input-date-range span {
+	position: relative;
+	left: -1rem;
+}
+
+smoothly-input-month smoothly-icon[fill=solid] {
+	stroke: rgb(var(--smoothly-default-contrast));
+}
+
+p2p-account-statement-table smoothly-input {
+	white-space: nowrap;
+}
+
+smoothly-button a {
+	font-size: 100%;
+}
+
+.slot-detail.sc-smoothly-table-expandable-cell,
+.slot-detail.sc-smoothly-table-expandable-row {
+	box-shadow: 0px 0px 4px 2px rgba(var(--smoothly-dark-color), 0.5);
+	border-left-color: rgb(var(--smoothly-primary-color));
+	padding: 0;
+}
+
+p2p-card-single svg {
+	right: initial;
+	border: none;
+	border-top: none;
+	box-shadow: none;
+}
+
+p2p-payment-batch-item .sc-smoothly-table-expandable-cell-h smoothly-icon.sc-smoothly-table-expandable-cell {
+	width: 1.2rem;
+}
+
+smoothly-trigger svg {
+	vertical-align: inherit;
+}
+
+p2p-user-table-row>.sc-smoothly-dialog-h>main.sc-smoothly-dialog {
+	padding: 2rem;
+	display: grid;
+	text-align: center;
+	margin: 25rem auto;
+}
+
+p2p-user-table-row>.sc-smoothly-dialog-h>main.sc-smoothly-dialog>div {
+	display: flex;
+	justify-content: center;
+}
+
+p2p-user-table-row>.sc-smoothly-dialog-h>header.sc-smoothly-dialog {
+	display: none;
+}
+
+p2p-user-table-row[hidden].sc-p2p-user-table>tr>td>div.slot-detail.sc-smoothly-table-expandable-row {
+	box-shadow: none;
+}
+
+p2p-account-statement-table .sc-smoothly-table-expandable-row-h smoothly-icon.sc-smoothly-table-expandable-row {
+	margin-top: 0.75rem;
+	margin-left: 1.5rem;
+}
+
+p2p-user-batch-item input.sc-smoothly-input {
+	padding: 0.75rem;
+}
+
+p2p-user-table .sc-smoothly-table-expandable-row-h smoothly-icon.sc-smoothly-table-expandable-row {
+	margin-top: 1rem;
+}
+
+p2p-card-table-row>.sc-smoothly-table-expandable-row-h smoothly-icon.sc-smoothly-table-expandable-row {
+	margin-top: 2rem;
+}
+
+[disabled].sc-smoothly-submit-h {
+	pointer-events: none;
+}
+
+smoothly-button[disabled] {
+	pointer-events: none;
+}
+
+#userCreationRolesetSelector.invalid>smoothly-selector {
+	border-color: rgb(var(--smoothly-primary-color));
+}
+
+.statementTableMeta input.sc-smoothly-input,
+.statementTableMeta div,
+.statementTableMeta smoothly-input,
+.cardTableMeta input.sc-smoothly-input,
+.cardTableMeta div,
+.cardTableMeta smoothly-input {
+	cursor: pointer;
+	pointer-events: none;
+}
+
+p2p-meta-summary>smoothly-input>div>input {
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+}
+
+smoothly-selector:not([disabled]) {
+	cursor: pointer;
+}
+
+smoothly-input:not([disabled])>div>input {
+	cursor: text;
+}
+
+p2p-card-table-filter div>smoothly-icon.sc-p2p-search-input {
+	display: none;
+}
+
+smoothly-button>button {
+	height: 100%;
+}
+
+p2p-card-table-row [open].sc-smoothly-table-expandable-row-h {
+	z-index: 0;
+}
+
+smoothly-selector.sc-p2p-balance-selector,
+smoothly-selector.sc-p2p-account-selector {
+	width: 100%;
+}
+
+.sc-smoothly-input-date-range-h>section.sc-smoothly-input-date-range {
+	height: inherit;
+}
+
+smoothly-input-date-range.sc-p2p-account-statement-filter label {
+	display: none;
+}
+
+smoothly-input-date-range.sc-p2p-account-statement-filter input {
+	padding: 0.75rem;
+}
+
+smoothly-calendar th {
+	white-space: nowrap;
+}
+
+smoothly-room {
+	margin: auto;
+	display: block;
+	max-width: 1500px;
+}
+
+.sc-smoothly-table-header-h {
+	background-color: transparent;
+}
+
+smoothly-spinner svg {
+	top: 0 !important;
+	right: initial !important;
+	border: none !important;
+	border-top: none !important;
+	box-shadow: none !important;
+}
+
+smoothly-button.sc-p2p-user-view {
+	padding: 0;
+}
+
+@media (max-width: 1200px) {
+	smoothly-room {
+		max-width: 1270px;
+	}
+}
+
+@media (max-width: 992px) {
+	smoothly-room {
+		max-width: 1170px;
+	}
+}
+
+@media (max-width: 768px) {
+	smoothly-room {
+		max-width: 930px;
+	}
+}
+
+@media (max-width: 576px) {
+	smoothly-room {
+		max-width: 719px;
+	}
+}
