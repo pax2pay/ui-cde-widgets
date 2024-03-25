@@ -1,7 +1,7 @@
 {
 	"name": "ui-template",
 	"private": true,
-	"version": "0.0.4",
+	"version": "0.0.5",
 	"description": "Template with Stencil and Utily/smoothly-app",
 	"author": "Utily Contributors",
 	"license": "MIT",
