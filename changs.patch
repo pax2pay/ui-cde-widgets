@@ -1,0 +1,2233 @@
+diff --git a/.gitignore b/.gitignore
+index 1468f03..1f00925 100644
+--- a/.gitignore
++++ b/.gitignore
+@@ -1,5 +1,6 @@
+ .npmrc
+ 
++loader/
+ dist/
+ !www/favicon.ico
+ www/
+diff --git a/package-lock.json b/package-lock.json
+index b0d56b5..d8d456d 100644
+--- a/package-lock.json
++++ b/package-lock.json
+@@ -1,29 +1,28 @@
+ {
+-	"name": "ui-template",
+-	"version": "0.0.5",
++	"name": "ui-cde-widgets",
++	"version": "0.0.1",
+ 	"lockfileVersion": 3,
+ 	"requires": true,
+ 	"packages": {
+ 		"": {
+-			"name": "ui-template",
+-			"version": "0.0.5",
++			"name": "ui-cde-widgets",
++			"version": "0.0.1",
+ 			"license": "MIT",
+ 			"dependencies": {
+ 				"@pax2pay/model-cde": "^0.0.61",
+-				"gracely": "^2.0.8",
+-				"smoothly": "^0.3.65"
++				"gracely": "^2.0.8"
+ 			},
+ 			"devDependencies": {
+-				"@stencil/core": "4.13.0",
++				"@stencil/core": "2.22.3",
+ 				"@types/jest": "^29.5.12",
+ 				"@typescript-eslint/eslint-plugin": "7.3.1",
+ 				"@typescript-eslint/parser": "7.3.1",
+ 				"eslint": "^8.57.0",
+-				"eslint-plugin-prettierx": "github:utily/eslint-plugin-prettierx#utily-20221229",
++				"eslint-plugin-prettierx": "github:utily/eslint-plugin-prettierx#utily-20231004",
+ 				"eslint-plugin-simple-import-sort": "^12.0.0",
+ 				"jest": "^29.7.0",
+ 				"jest-cli": "^29.7.0",
+-				"prettierx": "github:utily/prettierx#utily-20221229",
++				"prettierx": "github:utily/prettierx#utily-20231004",
+ 				"puppeteer": "^22.6.0",
+ 				"rimraf": "^5.0.5",
+ 				"ts-jest": "^29.1.2",
+@@ -719,6 +718,28 @@
+ 				"url": "https://opencollective.com/eslint"
+ 			}
+ 		},
++		"node_modules/@eslint/eslintrc/node_modules/brace-expansion": {
++			"version": "1.1.11",
++			"resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.11.tgz",
++			"integrity": "sha512-iCuPHDFgrHX7H2vEI/5xpz07zSHB00TpugqhmYtVmMO6518mCuRMoOYFldEBl0g187ufozdaHgWKcYFb61qGiA==",
++			"dev": true,
++			"dependencies": {
++				"balanced-match": "^1.0.0",
++				"concat-map": "0.0.1"
++			}
++		},
++		"node_modules/@eslint/eslintrc/node_modules/minimatch": {
++			"version": "3.1.2",
++			"resolved": "https://registry.npmjs.org/minimatch/-/minimatch-3.1.2.tgz",
++			"integrity": "sha512-J7p63hRiAjw1NDEww1W7i37+ByIrOWO5XQQAzZ3VOcL0PNybwpfmV/N05zFAzwQ9USyEcX6t3UO+K5aqBQOIHw==",
++			"dev": true,
++			"dependencies": {
++				"brace-expansion": "^1.1.7"
++			},
++			"engines": {
++				"node": "*"
++			}
++		},
+ 		"node_modules/@eslint/js": {
+ 			"version": "8.57.0",
+ 			"resolved": "https://registry.npmjs.org/@eslint/js/-/js-8.57.0.tgz",
+@@ -786,6 +807,28 @@
+ 				"node": ">=10.10.0"
+ 			}
+ 		},
++		"node_modules/@humanwhocodes/config-array/node_modules/brace-expansion": {
++			"version": "1.1.11",
++			"resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.11.tgz",
++			"integrity": "sha512-iCuPHDFgrHX7H2vEI/5xpz07zSHB00TpugqhmYtVmMO6518mCuRMoOYFldEBl0g187ufozdaHgWKcYFb61qGiA==",
++			"dev": true,
++			"dependencies": {
++				"balanced-match": "^1.0.0",
++				"concat-map": "0.0.1"
++			}
++		},
++		"node_modules/@humanwhocodes/config-array/node_modules/minimatch": {
++			"version": "3.1.2",
++			"resolved": "https://registry.npmjs.org/minimatch/-/minimatch-3.1.2.tgz",
++			"integrity": "sha512-J7p63hRiAjw1NDEww1W7i37+ByIrOWO5XQQAzZ3VOcL0PNybwpfmV/N05zFAzwQ9USyEcX6t3UO+K5aqBQOIHw==",
++			"dev": true,
++			"dependencies": {
++				"brace-expansion": "^1.1.7"
++			},
++			"engines": {
++				"node": "*"
++			}
++		},
+ 		"node_modules/@humanwhocodes/module-importer": {
+ 			"version": "1.0.1",
+ 			"resolved": "https://registry.npmjs.org/@humanwhocodes/module-importer/-/module-importer-1.0.1.tgz",
+@@ -1394,21 +1437,11 @@
+ 				"isoly": "^0.1.19"
+ 			}
+ 		},
+-		"node_modules/@pax2pay/model-cde/node_modules/cryptly": {
+-			"version": "4.0.4",
+-			"resolved": "https://registry.npmjs.org/cryptly/-/cryptly-4.0.4.tgz",
+-			"integrity": "sha512-C1iTI1pJBHXoCsUMkVqIZa6XYB3uHdWacfhdRalBmf6fghWwtQv9SLQBbCcD0r74gI0vS8vTie/vbgwEkh0LwQ=="
+-		},
+ 		"node_modules/@pax2pay/model-cde/node_modules/gracely": {
+ 			"version": "0.0.44",
+ 			"resolved": "https://registry.npmjs.org/gracely/-/gracely-0.0.44.tgz",
+ 			"integrity": "sha512-gOWfSNNXkrk7dQFLZAyySpAYYmoT+o5bRwCQq3Yj4SuVCmX4Gvo6kHAalzhUvRX7C0xM7xFcKtk/k2wTJuxJOQ=="
+ 		},
+-		"node_modules/@pax2pay/model-cde/node_modules/isoly": {
+-			"version": "0.1.28",
+-			"resolved": "https://registry.npmjs.org/isoly/-/isoly-0.1.28.tgz",
+-			"integrity": "sha512-iz5XUsX+vanrp/Ue76SugmwIVkZ/g2grh6gQuE4qwW+zAfnmCSUZyrfPVJUtGVZ5vzs6NvsFN+HJPBu7cisw1A=="
+-		},
+ 		"node_modules/@pkgjs/parseargs": {
+ 			"version": "0.11.0",
+ 			"resolved": "https://registry.npmjs.org/@pkgjs/parseargs/-/parseargs-0.11.0.tgz",
+@@ -1472,23 +1505,16 @@
+ 			}
+ 		},
+ 		"node_modules/@stencil/core": {
+-			"version": "4.13.0",
+-			"resolved": "https://registry.npmjs.org/@stencil/core/-/core-4.13.0.tgz",
+-			"integrity": "sha512-gg+gtBWekQ08mDja8GVAUHNu+rrFhQaKZDvfhnS3l/5JbYiJddTimuDPPhuc0sR0JZL1iRdJTJSa+JbvmnQ1cQ==",
++			"version": "2.22.3",
++			"resolved": "https://registry.npmjs.org/@stencil/core/-/core-2.22.3.tgz",
++			"integrity": "sha512-kmVA0M/HojwsfkeHsifvHVIYe4l5tin7J5+DLgtl8h6WWfiMClND5K3ifCXXI2ETDNKiEk21p6jql3Fx9o2rng==",
++			"dev": true,
+ 			"bin": {
+ 				"stencil": "bin/stencil"
+ 			},
+ 			"engines": {
+-				"node": ">=16.0.0",
+-				"npm": ">=7.10.0"
+-			}
+-		},
+-		"node_modules/@stencil/store": {
+-			"version": "1.5.0",
+-			"resolved": "https://registry.npmjs.org/@stencil/store/-/store-1.5.0.tgz",
+-			"integrity": "sha512-fe5fCF6dgVlDM1iLRkkJUyUh0Tfx305asVGgMAJjIs7Q+x/b1pGgTLROm9Ibr53PZuFwr5Kg+4h9p4FLbYqHgA==",
+-			"peerDependencies": {
+-				"@stencil/core": ">=1.9.0"
++				"node": ">=12.10.0",
++				"npm": ">=6.0.0"
+ 			}
+ 		},
+ 		"node_modules/@tootallnate/quickjs-emscripten": {
+@@ -1597,9 +1623,9 @@
+ 			}
+ 		},
+ 		"node_modules/@types/parse-json": {
+-			"version": "4.0.0",
+-			"resolved": "https://registry.npmjs.org/@types/parse-json/-/parse-json-4.0.0.tgz",
+-			"integrity": "sha512-//oorEZjL6sbPcKUaCdIGlIUeH26mgzimjBB77G6XRgnDl/L5wOnpyBGRe/Mmf5CVW3PwEBE1NjiMZ/ssFh4wA==",
++			"version": "4.0.2",
++			"resolved": "https://registry.npmjs.org/@types/parse-json/-/parse-json-4.0.2.tgz",
++			"integrity": "sha512-dISoDXWWQwUquiKsyZ4Ng+HX2KsPL7LyHKHQwgGFEA3IaKac4Obd+h2a/a6waisAoepJlBcx9paWqjA8/HVjCw==",
+ 			"dev": true
+ 		},
+ 		"node_modules/@types/semver": {
+@@ -1615,9 +1641,9 @@
+ 			"dev": true
+ 		},
+ 		"node_modules/@types/unist": {
+-			"version": "2.0.6",
+-			"resolved": "https://registry.npmjs.org/@types/unist/-/unist-2.0.6.tgz",
+-			"integrity": "sha512-PBjIUxZHOuj0R15/xuwJYjFi+KZdNFrehocChv4g5hu6aFroHue8m0lBP0POdK2nKzbw0cgV1mws8+V/JAcEkQ==",
++			"version": "2.0.10",
++			"resolved": "https://registry.npmjs.org/@types/unist/-/unist-2.0.10.tgz",
++			"integrity": "sha512-IfYcSBWE3hLpBg8+X2SEa8LVkJdJEkT2Ese2aaLs3ptGdVtABxndrMaxuFlQ1qdFf9Q5rDvDpxI3WwgvKFAsQA==",
+ 			"dev": true
+ 		},
+ 		"node_modules/@types/yargs": {
+@@ -1793,30 +1819,6 @@
+ 				}
+ 			}
+ 		},
+-		"node_modules/@typescript-eslint/typescript-estree/node_modules/brace-expansion": {
+-			"version": "2.0.1",
+-			"resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-2.0.1.tgz",
+-			"integrity": "sha512-XnAIvQ8eM+kC6aULx6wuQiwVsnzsi9d3WxzV3FpWTGA19F621kwdbsAcFKXgKUHZWsy+mY6iL1sHTxWEFCytDA==",
+-			"dev": true,
+-			"dependencies": {
+-				"balanced-match": "^1.0.0"
+-			}
+-		},
+-		"node_modules/@typescript-eslint/typescript-estree/node_modules/minimatch": {
+-			"version": "9.0.3",
+-			"resolved": "https://registry.npmjs.org/minimatch/-/minimatch-9.0.3.tgz",
+-			"integrity": "sha512-RHiac9mvaRw0x3AYRgDC1CxAP7HTcNrrECeA8YYJeWnpo+2Q5CegtZjaotWTWxDG3UeGA1coE05iH1mPjT/2mg==",
+-			"dev": true,
+-			"dependencies": {
+-				"brace-expansion": "^2.0.1"
+-			},
+-			"engines": {
+-				"node": ">=16 || 14 >=14.17"
+-			},
+-			"funding": {
+-				"url": "https://github.com/sponsors/isaacs"
+-			}
+-		},
+ 		"node_modules/@typescript-eslint/utils": {
+ 			"version": "7.3.1",
+ 			"resolved": "https://registry.npmjs.org/@typescript-eslint/utils/-/utils-7.3.1.tgz",
+@@ -2039,18 +2041,6 @@
+ 				"node": ">=4"
+ 			}
+ 		},
+-		"node_modules/authly": {
+-			"version": "3.0.11",
+-			"resolved": "https://registry.npmjs.org/authly/-/authly-3.0.11.tgz",
+-			"integrity": "sha512-dJ6AQqHvsZb+LrJLREDAzmNbiAyDls0ON2Y90AKGBYvem4SrNhjcVQcinI1zaSBdjcf0I/dhuhn7gqLEqEb2eQ==",
+-			"dependencies": {
+-				"cryptly": "3.1.3"
+-			},
+-			"engines": {
+-				"node": ">=16.0.0",
+-				"npm": ">=7.0.0"
+-			}
+-		},
+ 		"node_modules/b4a": {
+ 			"version": "1.6.6",
+ 			"resolved": "https://registry.npmjs.org/b4a/-/b4a-1.6.6.tgz",
+@@ -2256,13 +2246,12 @@
+ 			}
+ 		},
+ 		"node_modules/brace-expansion": {
+-			"version": "1.1.11",
+-			"resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.11.tgz",
+-			"integrity": "sha512-iCuPHDFgrHX7H2vEI/5xpz07zSHB00TpugqhmYtVmMO6518mCuRMoOYFldEBl0g187ufozdaHgWKcYFb61qGiA==",
++			"version": "2.0.1",
++			"resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-2.0.1.tgz",
++			"integrity": "sha512-XnAIvQ8eM+kC6aULx6wuQiwVsnzsi9d3WxzV3FpWTGA19F621kwdbsAcFKXgKUHZWsy+mY6iL1sHTxWEFCytDA==",
+ 			"dev": true,
+ 			"dependencies": {
+-				"balanced-match": "^1.0.0",
+-				"concat-map": "0.0.1"
++				"balanced-match": "^1.0.0"
+ 			}
+ 		},
+ 		"node_modules/braces": {
+@@ -2473,9 +2462,9 @@
+ 			}
+ 		},
+ 		"node_modules/chromium-bidi": {
+-			"version": "0.5.13",
+-			"resolved": "https://registry.npmjs.org/chromium-bidi/-/chromium-bidi-0.5.13.tgz",
+-			"integrity": "sha512-OHbYCetDxdW/xmlrafgOiLsIrw4Sp1BEeolbZ1UGJO5v/nekQOJBj/Kzyw6sqKcAVabUTo0GS3cTYgr6zIf00g==",
++			"version": "0.5.14",
++			"resolved": "https://registry.npmjs.org/chromium-bidi/-/chromium-bidi-0.5.14.tgz",
++			"integrity": "sha512-zm4mX61/U4KXs+S/0WIBHpOWqtpW6FPv1i7n4UZqDDc5LOQ9/Y1MAnB95nO7i/lFFuijLjpe1XMdNcqDqwlH5w==",
+ 			"dev": true,
+ 			"dependencies": {
+ 				"mitt": "3.0.1",
+@@ -2620,12 +2609,6 @@
+ 			"integrity": "sha512-dOy+3AuW3a2wNbZHIuMZpTcgjGuLU/uBL/ubcZF9OXbDo8ff4O8yVp5Bf0efS8uEoYo5q4Fx7dY9OgQGXgAsQA==",
+ 			"dev": true
+ 		},
+-		"node_modules/colorette": {
+-			"version": "1.4.0",
+-			"resolved": "https://registry.npmjs.org/colorette/-/colorette-1.4.0.tgz",
+-			"integrity": "sha512-Y2oEozpomLn7Q3HFP7dpww7AtMJplbM9lGZP6RDfHqmbeRjiwRg4n6VM6j4KLmRke85uWEI7JqF17f3pqdRA0g==",
+-			"dev": true
+-		},
+ 		"node_modules/commander": {
+ 			"version": "2.20.3",
+ 			"resolved": "https://registry.npmjs.org/commander/-/commander-2.20.3.tgz",
+@@ -2696,9 +2679,9 @@
+ 			}
+ 		},
+ 		"node_modules/cryptly": {
+-			"version": "3.1.3",
+-			"resolved": "https://registry.npmjs.org/cryptly/-/cryptly-3.1.3.tgz",
+-			"integrity": "sha512-bk63fCYzLO0zoXnxsC+zEFlSFhDKTxpX2sAp0gXxD8nh/9HW9BbDj7KNanhBaC6KklBKj+I6DWNx1gzn8u11yQ=="
++			"version": "4.0.4",
++			"resolved": "https://registry.npmjs.org/cryptly/-/cryptly-4.0.4.tgz",
++			"integrity": "sha512-C1iTI1pJBHXoCsUMkVqIZa6XYB3uHdWacfhdRalBmf6fghWwtQv9SLQBbCcD0r74gI0vS8vTie/vbgwEkh0LwQ=="
+ 		},
+ 		"node_modules/dashify": {
+ 			"version": "2.0.0",
+@@ -2885,9 +2868,9 @@
+ 			}
+ 		},
+ 		"node_modules/editorconfig/node_modules/semver": {
+-			"version": "5.7.1",
+-			"resolved": "https://registry.npmjs.org/semver/-/semver-5.7.1.tgz",
+-			"integrity": "sha512-sauaDf/PZdVgrLTNYHRtpXa1iRiKcaebiKQ1BJdpQlWH2lCvexQdX55snPFyK7QzpudqbCI0qXFfOasHdyNDGQ==",
++			"version": "5.7.2",
++			"resolved": "https://registry.npmjs.org/semver/-/semver-5.7.2.tgz",
++			"integrity": "sha512-cBznnQ9KjJqU67B52RMC65CMarK2600WFnbkcaiwWq3xy/5haFJlshgnpjovMVJ+Hff49d8GEn0b87C5pDQ10g==",
+ 			"dev": true,
+ 			"bin": {
+ 				"semver": "bin/semver"
+@@ -3049,12 +3032,12 @@
+ 		},
+ 		"node_modules/eslint-plugin-prettierx": {
+ 			"version": "0.18.0",
+-			"resolved": "git+ssh://git@github.com/utily/eslint-plugin-prettierx.git#2a5494b2ce6e01eab40adea72dacd1c1ef9ce441",
++			"resolved": "git+ssh://git@github.com/utily/eslint-plugin-prettierx.git#0c81579f1aa75553f81bd63ce44391db3bb3eac0",
+ 			"dev": true,
+ 			"license": "MIT",
+ 			"dependencies": {
+ 				"prettier-linter-helpers": "~1.0.0",
+-				"prettierx": "github:utily/prettierx#utily-20221229"
++				"prettierx": "github:utily/prettierx#utily-20231004"
+ 			},
+ 			"bin": {
+ 				"prettierx-init": "bin/prettierx-init.js"
+@@ -3103,6 +3086,28 @@
+ 				"url": "https://opencollective.com/eslint"
+ 			}
+ 		},
++		"node_modules/eslint/node_modules/brace-expansion": {
++			"version": "1.1.11",
++			"resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.11.tgz",
++			"integrity": "sha512-iCuPHDFgrHX7H2vEI/5xpz07zSHB00TpugqhmYtVmMO6518mCuRMoOYFldEBl0g187ufozdaHgWKcYFb61qGiA==",
++			"dev": true,
++			"dependencies": {
++				"balanced-match": "^1.0.0",
++				"concat-map": "0.0.1"
++			}
++		},
++		"node_modules/eslint/node_modules/minimatch": {
++			"version": "3.1.2",
++			"resolved": "https://registry.npmjs.org/minimatch/-/minimatch-3.1.2.tgz",
++			"integrity": "sha512-J7p63hRiAjw1NDEww1W7i37+ByIrOWO5XQQAzZ3VOcL0PNybwpfmV/N05zFAzwQ9USyEcX6t3UO+K5aqBQOIHw==",
++			"dev": true,
++			"dependencies": {
++				"brace-expansion": "^1.1.7"
++			},
++			"engines": {
++				"node": "*"
++			}
++		},
+ 		"node_modules/espree": {
+ 			"version": "9.6.1",
+ 			"resolved": "https://registry.npmjs.org/espree/-/espree-9.6.1.tgz",
+@@ -3271,9 +3276,9 @@
+ 			"dev": true
+ 		},
+ 		"node_modules/fast-diff": {
+-			"version": "1.2.0",
+-			"resolved": "https://registry.npmjs.org/fast-diff/-/fast-diff-1.2.0.tgz",
+-			"integrity": "sha512-xJuoT5+L99XlZ8twedaRf6Ax2TgQVxvgZOYoPKqZufmJib0tL2tegPBOZb1pVNgIhlqDlA0eO0c3wBvQcmzx4w==",
++			"version": "1.3.0",
++			"resolved": "https://registry.npmjs.org/fast-diff/-/fast-diff-1.3.0.tgz",
++			"integrity": "sha512-VxPP4NqbUjj6MaAOafWeUn2cXWLcCtljklUtZf0Ind4XQ+QPtmA0b18zZy0jIQx+ExRVCR/ZQpBmik5lXshNsw==",
+ 			"dev": true
+ 		},
+ 		"node_modules/fast-fifo": {
+@@ -3323,9 +3328,9 @@
+ 			"dev": true
+ 		},
+ 		"node_modules/fastq": {
+-			"version": "1.15.0",
+-			"resolved": "https://registry.npmjs.org/fastq/-/fastq-1.15.0.tgz",
+-			"integrity": "sha512-wBrocU2LCXXa+lWBt8RoIRD89Fi8OdABODa/kEnyeyjS5aZO5/GNvI5sEINADqP/h8M29UHTHUb53sUu5Ihqdw==",
++			"version": "1.17.1",
++			"resolved": "https://registry.npmjs.org/fastq/-/fastq-1.17.1.tgz",
++			"integrity": "sha512-sRVD3lWVIXWg6By68ZN7vho9a1pQcN/WBFaAAsDDFzlJjvoGx0P8z7V1t72grFJfJhu3YPZBuu25f7Kaw2jN1w==",
+ 			"dev": true,
+ 			"dependencies": {
+ 				"reusify": "^1.0.4"
+@@ -3396,12 +3401,13 @@
+ 			}
+ 		},
+ 		"node_modules/flat-cache": {
+-			"version": "3.0.4",
+-			"resolved": "https://registry.npmjs.org/flat-cache/-/flat-cache-3.0.4.tgz",
+-			"integrity": "sha512-dm9s5Pw7Jc0GvMYbshN6zchCA9RgQlzzEZX3vylR9IqFfS8XciblUXOKfW6SiuJ0e13eDYZoZV5wdrev7P3Nwg==",
++			"version": "3.2.0",
++			"resolved": "https://registry.npmjs.org/flat-cache/-/flat-cache-3.2.0.tgz",
++			"integrity": "sha512-CYcENa+FtcUKLmhhqyctpclsq7QF38pKjZHsGNiSQF5r4FtoKDWabFDl3hzaEQMvT1LHEysw5twgLvpYYb4vbw==",
+ 			"dev": true,
+ 			"dependencies": {
+-				"flatted": "^3.1.0",
++				"flatted": "^3.2.9",
++				"keyv": "^4.5.3",
+ 				"rimraf": "^3.0.2"
+ 			},
+ 			"engines": {
+@@ -3424,9 +3430,9 @@
+ 			}
+ 		},
+ 		"node_modules/flatted": {
+-			"version": "3.2.7",
+-			"resolved": "https://registry.npmjs.org/flatted/-/flatted-3.2.7.tgz",
+-			"integrity": "sha512-5nqDSxl8nn5BSNxyR3n4I6eDmbolI6WT+QqR547RwxQapgjQBmtktdP+HTBb/a/zLsbzERTONyUB5pefh5TtjQ==",
++			"version": "3.3.1",
++			"resolved": "https://registry.npmjs.org/flatted/-/flatted-3.3.1.tgz",
++			"integrity": "sha512-X8cqMLLie7KsNUDSdzeN8FYK9rEt4Dt67OsG/DNGnYTSDBG4uFAJFBnUeiV+zCVAvwFy56IjM9sH51jVaEhNxw==",
+ 			"dev": true
+ 		},
+ 		"node_modules/flatten": {
+@@ -3484,20 +3490,6 @@
+ 			"integrity": "sha512-OO0pH2lK6a0hZnAdau5ItzHPI6pUlvI7jMVnxUQRtw4owF2wk8lOSabtGDCTP4Ggrg2MbGnWO9X8K1t4+fGMDw==",
+ 			"dev": true
+ 		},
+-		"node_modules/fsevents": {
+-			"version": "2.3.3",
+-			"resolved": "https://registry.npmjs.org/fsevents/-/fsevents-2.3.3.tgz",
+-			"integrity": "sha512-5xoDfX+fL7faATnagmWPpbFtwh/R77WmMMqqHGS65C3vvB0YHrgF+B1YmZ3441tMj5n63k0212XNoJwzlhffQw==",
+-			"dev": true,
+-			"hasInstallScript": true,
+-			"optional": true,
+-			"os": [
+-				"darwin"
+-			],
+-			"engines": {
+-				"node": "^8.16.0 || ^10.6.0 || >=11.0.0"
+-			}
+-		},
+ 		"node_modules/function-bind": {
+ 			"version": "1.1.2",
+ 			"resolved": "https://registry.npmjs.org/function-bind/-/function-bind-1.1.2.tgz",
+@@ -3605,6 +3597,28 @@
+ 				"node": ">=10.13.0"
+ 			}
+ 		},
++		"node_modules/glob/node_modules/brace-expansion": {
++			"version": "1.1.11",
++			"resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.11.tgz",
++			"integrity": "sha512-iCuPHDFgrHX7H2vEI/5xpz07zSHB00TpugqhmYtVmMO6518mCuRMoOYFldEBl0g187ufozdaHgWKcYFb61qGiA==",
++			"dev": true,
++			"dependencies": {
++				"balanced-match": "^1.0.0",
++				"concat-map": "0.0.1"
++			}
++		},
++		"node_modules/glob/node_modules/minimatch": {
++			"version": "3.1.2",
++			"resolved": "https://registry.npmjs.org/minimatch/-/minimatch-3.1.2.tgz",
++			"integrity": "sha512-J7p63hRiAjw1NDEww1W7i37+ByIrOWO5XQQAzZ3VOcL0PNybwpfmV/N05zFAzwQ9USyEcX6t3UO+K5aqBQOIHw==",
++			"dev": true,
++			"dependencies": {
++				"brace-expansion": "^1.1.7"
++			},
++			"engines": {
++				"node": "*"
++			}
++		},
+ 		"node_modules/globals": {
+ 			"version": "13.24.0",
+ 			"resolved": "https://registry.npmjs.org/globals/-/globals-13.24.0.tgz",
+@@ -3785,9 +3799,9 @@
+ 			]
+ 		},
+ 		"node_modules/ignore": {
+-			"version": "5.2.4",
+-			"resolved": "https://registry.npmjs.org/ignore/-/ignore-5.2.4.tgz",
+-			"integrity": "sha512-MAb38BcSbH0eHNBxn7ql2NH/kX33OkB3lZ1BNdh7ENeRChHTYsTvWrMubiIAMNS2llXEEgZ1MUOBtXChP3kaFQ==",
++			"version": "5.3.1",
++			"resolved": "https://registry.npmjs.org/ignore/-/ignore-5.3.1.tgz",
++			"integrity": "sha512-5Fytz/IraMjqpwfd34ke28PTVMjZjJG2MPn5t7OE4eUCUNf8BAa7b5WUS9/Qvr6mwOQS7Mk6vdsMno5he+T8Xw==",
+ 			"dev": true,
+ 			"engines": {
+ 				"node": ">= 4"
+@@ -4062,9 +4076,9 @@
+ 			"dev": true
+ 		},
+ 		"node_modules/isoly": {
+-			"version": "2.3.8",
+-			"resolved": "https://registry.npmjs.org/isoly/-/isoly-2.3.8.tgz",
+-			"integrity": "sha512-/jwRcOIy5g7fXBPR6A1ewf11qyxgqT7GZ/ZfXiKyJYb625KgpAT6sYJ+592gSbiGBhauuqTcCJIzzEFBNjk+Iw=="
++			"version": "0.1.28",
++			"resolved": "https://registry.npmjs.org/isoly/-/isoly-0.1.28.tgz",
++			"integrity": "sha512-iz5XUsX+vanrp/Ue76SugmwIVkZ/g2grh6gQuE4qwW+zAfnmCSUZyrfPVJUtGVZ5vzs6NvsFN+HJPBu7cisw1A=="
+ 		},
+ 		"node_modules/istanbul-lib-coverage": {
+ 			"version": "3.2.2",
+@@ -4741,6 +4755,12 @@
+ 				"node": ">=4"
+ 			}
+ 		},
++		"node_modules/json-buffer": {
++			"version": "3.0.1",
++			"resolved": "https://registry.npmjs.org/json-buffer/-/json-buffer-3.0.1.tgz",
++			"integrity": "sha512-4bV5BfR2mqfQTJm+V5tPPdf+ZpuhiIvTuAB5g8kcrXOZpTT/QwwVRWBywX1ozr6lEuPdbHxwaJlm9G6mI2sfSQ==",
++			"dev": true
++		},
+ 		"node_modules/json-parse-even-better-errors": {
+ 			"version": "2.3.1",
+ 			"resolved": "https://registry.npmjs.org/json-parse-even-better-errors/-/json-parse-even-better-errors-2.3.1.tgz",
+@@ -4783,6 +4803,15 @@
+ 				"graceful-fs": "^4.1.6"
+ 			}
+ 		},
++		"node_modules/keyv": {
++			"version": "4.5.4",
++			"resolved": "https://registry.npmjs.org/keyv/-/keyv-4.5.4.tgz",
++			"integrity": "sha512-oxVHkHR/EJf2CNXnWxRLW6mg7JyCCUcG0DtEGmL2ctUo1PNTin1PUil+r/+4r5MpVgC/fn1kjsx7mjSujKqIpw==",
++			"dev": true,
++			"dependencies": {
++				"json-buffer": "3.0.1"
++			}
++		},
+ 		"node_modules/kleur": {
+ 			"version": "3.0.3",
+ 			"resolved": "https://registry.npmjs.org/kleur/-/kleur-3.0.3.tgz",
+@@ -4792,19 +4821,6 @@
+ 				"node": ">=6"
+ 			}
+ 		},
+-		"node_modules/langly": {
+-			"version": "2.0.8",
+-			"resolved": "https://registry.npmjs.org/langly/-/langly-2.0.8.tgz",
+-			"integrity": "sha512-AfRlNiU4dGjiUQLNsmGQpZuev0VdgA1jKFwkMWALQZRju42lycFxABZfBZEP0WbmJcDrkGuB6Htravc2UA6IHw==",
+-			"dependencies": {
+-				"isoly": "2.0.31"
+-			}
+-		},
+-		"node_modules/langly/node_modules/isoly": {
+-			"version": "2.0.31",
+-			"resolved": "https://registry.npmjs.org/isoly/-/isoly-2.0.31.tgz",
+-			"integrity": "sha512-44u57KcJt3RNYOONDe+ELStMuqs+tK76YtUDIB3nQhPg3668XCCL71/CgMff9I1eW9StdK3EfouZPZXQ/MIqgA=="
+-		},
+ 		"node_modules/leven": {
+ 			"version": "3.1.0",
+ 			"resolved": "https://registry.npmjs.org/leven/-/leven-3.1.0.tgz",
+@@ -5005,15 +5021,18 @@
+ 			}
+ 		},
+ 		"node_modules/minimatch": {
+-			"version": "3.1.2",
+-			"resolved": "https://registry.npmjs.org/minimatch/-/minimatch-3.1.2.tgz",
+-			"integrity": "sha512-J7p63hRiAjw1NDEww1W7i37+ByIrOWO5XQQAzZ3VOcL0PNybwpfmV/N05zFAzwQ9USyEcX6t3UO+K5aqBQOIHw==",
++			"version": "9.0.3",
++			"resolved": "https://registry.npmjs.org/minimatch/-/minimatch-9.0.3.tgz",
++			"integrity": "sha512-RHiac9mvaRw0x3AYRgDC1CxAP7HTcNrrECeA8YYJeWnpo+2Q5CegtZjaotWTWxDG3UeGA1coE05iH1mPjT/2mg==",
+ 			"dev": true,
+ 			"dependencies": {
+-				"brace-expansion": "^1.1.7"
++				"brace-expansion": "^2.0.1"
+ 			},
+ 			"engines": {
+-				"node": "*"
++				"node": ">=16 || 14 >=14.17"
++			},
++			"funding": {
++				"url": "https://github.com/sponsors/isaacs"
+ 			}
+ 		},
+ 		"node_modules/minimist": {
+@@ -5053,10 +5072,16 @@
+ 			}
+ 		},
+ 		"node_modules/nanoid": {
+-			"version": "3.3.4",
+-			"resolved": "https://registry.npmjs.org/nanoid/-/nanoid-3.3.4.tgz",
+-			"integrity": "sha512-MqBkQh/OHTS2egovRtLk45wEyNXwF+cokD+1YPf9u5VfJiRdAiRwB2froX5Co9Rh20xs4siNPm8naNotSD6RBw==",
++			"version": "3.3.7",
++			"resolved": "https://registry.npmjs.org/nanoid/-/nanoid-3.3.7.tgz",
++			"integrity": "sha512-eSRppjcPIatRIMC1U6UngP8XFcz8MQWGQdt1MTBQ7NaAmvXDfvNxbvWV3x2y6CdEUciCSsDHDQZbhYaB8QEo2g==",
+ 			"dev": true,
++			"funding": [
++				{
++					"type": "github",
++					"url": "https://github.com/sponsors/ai"
++				}
++			],
+ 			"bin": {
+ 				"nanoid": "bin/nanoid.cjs"
+ 			},
+@@ -5100,11 +5125,6 @@
+ 				"node": ">=0.10.0"
+ 			}
+ 		},
+-		"node_modules/normalize.css": {
+-			"version": "8.0.1",
+-			"resolved": "https://registry.npmjs.org/normalize.css/-/normalize.css-8.0.1.tgz",
+-			"integrity": "sha512-qizSNPO93t1YUuUhP22btGOo3chcvDFqFaj2TRybP0DMxkHOCTYwp3n34fel4a31ORXy4m1Xq0Gyqpb5m33qIg=="
+-		},
+ 		"node_modules/npm-run-path": {
+ 			"version": "4.0.1",
+ 			"resolved": "https://registry.npmjs.org/npm-run-path/-/npm-run-path-4.0.1.tgz",
+@@ -5472,21 +5492,31 @@
+ 			}
+ 		},
+ 		"node_modules/postcss": {
+-			"version": "8.3.5",
+-			"resolved": "https://registry.npmjs.org/postcss/-/postcss-8.3.5.tgz",
+-			"integrity": "sha512-NxTuJocUhYGsMiMFHDUkmjSKT3EdH4/WbGF6GCi1NDGk+vbcUTun4fpbOqaPtD8IIsztA2ilZm2DhYCuyN58gA==",
++			"version": "8.4.38",
++			"resolved": "https://registry.npmjs.org/postcss/-/postcss-8.4.38.tgz",
++			"integrity": "sha512-Wglpdk03BSfXkHoQa3b/oulrotAkwrlLDRSOb9D0bN86FdRyE9lppSp33aHNPgBa0JKCoB+drFLZkQoRRYae5A==",
+ 			"dev": true,
++			"funding": [
++				{
++					"type": "opencollective",
++					"url": "https://opencollective.com/postcss/"
++				},
++				{
++					"type": "tidelift",
++					"url": "https://tidelift.com/funding/github/npm/postcss"
++				},
++				{
++					"type": "github",
++					"url": "https://github.com/sponsors/ai"
++				}
++			],
+ 			"dependencies": {
+-				"colorette": "^1.2.2",
+-				"nanoid": "^3.1.23",
+-				"source-map-js": "^0.6.2"
++				"nanoid": "^3.3.7",
++				"picocolors": "^1.0.0",
++				"source-map-js": "^1.2.0"
+ 			},
+ 			"engines": {
+ 				"node": "^10 || ^12 || >=14"
+-			},
+-			"funding": {
+-				"type": "opencollective",
+-				"url": "https://opencollective.com/postcss/"
+ 			}
+ 		},
+ 		"node_modules/postcss-less": {
+@@ -5572,7 +5602,7 @@
+ 		"node_modules/prettierx": {
+ 			"name": "@utily/prettierx",
+ 			"version": "0.19.2",
+-			"resolved": "git+ssh://git@github.com/utily/prettierx.git#7edc9015ceb8b368f8968da4b41934a5982d4f3b",
++			"resolved": "git+ssh://git@github.com/utily/prettierx.git#f2d44e031e2ad8bf665f78191ab3167ff63ebb03",
+ 			"dev": true,
+ 			"license": "MIT",
+ 			"dependencies": {
+@@ -5622,7 +5652,7 @@
+ 				"outdent": "0.8.0",
+ 				"parse-srcset": "github:ikatyang/parse-srcset#master",
+ 				"please-upgrade-node": "3.2.0",
+-				"postcss": "8.3.5",
++				"postcss": "^8.4.31",
+ 				"postcss-less": "4.0.1",
+ 				"postcss-media-query-parser": "0.2.3",
+ 				"postcss-scss": "3.0.2",
+@@ -5632,7 +5662,7 @@
+ 				"remark-footnotes": "2.0.0",
+ 				"remark-math": "3.0.1",
+ 				"resolve": "1.20.0",
+-				"semver": "7.3.5",
++				"semver": "^7.5.4",
+ 				"string-width": "4.2.2",
+ 				"strip-ansi": "6.0.0",
+ 				"unicode-regex": "3.0.0",
+@@ -5746,6 +5776,16 @@
+ 				"node": ">=10"
+ 			}
+ 		},
++		"node_modules/prettierx/node_modules/brace-expansion": {
++			"version": "1.1.11",
++			"resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.11.tgz",
++			"integrity": "sha512-iCuPHDFgrHX7H2vEI/5xpz07zSHB00TpugqhmYtVmMO6518mCuRMoOYFldEBl0g187ufozdaHgWKcYFb61qGiA==",
++			"dev": true,
++			"dependencies": {
++				"balanced-match": "^1.0.0",
++				"concat-map": "0.0.1"
++			}
++		},
+ 		"node_modules/prettierx/node_modules/camelcase": {
+ 			"version": "6.2.0",
+ 			"resolved": "https://registry.npmjs.org/camelcase/-/camelcase-6.2.0.tgz",
+@@ -5843,9 +5883,9 @@
+ 			}
+ 		},
+ 		"node_modules/prettierx/node_modules/globby/node_modules/ignore": {
+-			"version": "5.2.4",
+-			"resolved": "https://registry.npmjs.org/ignore/-/ignore-5.2.4.tgz",
+-			"integrity": "sha512-MAb38BcSbH0eHNBxn7ql2NH/kX33OkB3lZ1BNdh7ENeRChHTYsTvWrMubiIAMNS2llXEEgZ1MUOBtXChP3kaFQ==",
++			"version": "5.3.1",
++			"resolved": "https://registry.npmjs.org/ignore/-/ignore-5.3.1.tgz",
++			"integrity": "sha512-5Fytz/IraMjqpwfd34ke28PTVMjZjJG2MPn5t7OE4eUCUNf8BAa7b5WUS9/Qvr6mwOQS7Mk6vdsMno5he+T8Xw==",
+ 			"dev": true,
+ 			"engines": {
+ 				"node": ">= 4"
+@@ -5878,16 +5918,16 @@
+ 			"integrity": "sha512-8ZmlJFVK9iCmtLz19HpSsR8HaAMWBT284VMNednLwlIMDP2hJDCIhUp0IZ2xUcZ+Ob6BM0VvCSJwzASDM45NLQ==",
+ 			"dev": true
+ 		},
+-		"node_modules/prettierx/node_modules/lru-cache": {
+-			"version": "6.0.0",
+-			"resolved": "https://registry.npmjs.org/lru-cache/-/lru-cache-6.0.0.tgz",
+-			"integrity": "sha512-Jo6dJ04CmSjuznwJSS3pUeWmd/H0ffTlkXXgwZi+eq1UCmqQwCh+eLsYOYCwY991i2Fah4h1BEMCx4qThGbsiA==",
++		"node_modules/prettierx/node_modules/minimatch": {
++			"version": "3.1.2",
++			"resolved": "https://registry.npmjs.org/minimatch/-/minimatch-3.1.2.tgz",
++			"integrity": "sha512-J7p63hRiAjw1NDEww1W7i37+ByIrOWO5XQQAzZ3VOcL0PNybwpfmV/N05zFAzwQ9USyEcX6t3UO+K5aqBQOIHw==",
+ 			"dev": true,
+ 			"dependencies": {
+-				"yallist": "^4.0.0"
++				"brace-expansion": "^1.1.7"
+ 			},
+ 			"engines": {
+-				"node": ">=10"
++				"node": "*"
+ 			}
+ 		},
+ 		"node_modules/prettierx/node_modules/resolve": {
+@@ -5903,21 +5943,6 @@
+ 				"url": "https://github.com/sponsors/ljharb"
+ 			}
+ 		},
+-		"node_modules/prettierx/node_modules/semver": {
+-			"version": "7.3.5",
+-			"resolved": "https://registry.npmjs.org/semver/-/semver-7.3.5.tgz",
+-			"integrity": "sha512-PoeGJYh8HK4BTO/a9Tf6ZG3veo/A7ZVsYrSA6J8ny9nb3B1VrpkuN+z9OE5wfE5p6H4LchYZsegiQgbJD94ZFQ==",
+-			"dev": true,
+-			"dependencies": {
+-				"lru-cache": "^6.0.0"
+-			},
+-			"bin": {
+-				"semver": "bin/semver.js"
+-			},
+-			"engines": {
+-				"node": ">=10"
+-			}
+-		},
+ 		"node_modules/prettierx/node_modules/strip-ansi": {
+ 			"version": "6.0.0",
+ 			"resolved": "https://registry.npmjs.org/strip-ansi/-/strip-ansi-6.0.0.tgz",
+@@ -5930,12 +5955,6 @@
+ 				"node": ">=8"
+ 			}
+ 		},
+-		"node_modules/prettierx/node_modules/yallist": {
+-			"version": "4.0.0",
+-			"resolved": "https://registry.npmjs.org/yallist/-/yallist-4.0.0.tgz",
+-			"integrity": "sha512-3wdGidZyq5PB084XLES5TpOSRA3wjXAlIWMhum2kRcv/41Sn2emQ0dycQW4uZXLejwKvg6EsvbdlVL+FYEct7A==",
+-			"dev": true
+-		},
+ 		"node_modules/pretty-format": {
+ 			"version": "29.7.0",
+ 			"resolved": "https://registry.npmjs.org/pretty-format/-/pretty-format-29.7.0.tgz",
+@@ -6044,16 +6063,16 @@
+ 			}
+ 		},
+ 		"node_modules/puppeteer": {
+-			"version": "22.6.0",
+-			"resolved": "https://registry.npmjs.org/puppeteer/-/puppeteer-22.6.0.tgz",
+-			"integrity": "sha512-TYeza4rl1YXfxqUVw/0hWUWYX5cicnf6qu5kkDV+t7QrESCjMoSNnva4ZA/MRGQ03HnB9BOFw9nxs/SKek5KDA==",
++			"version": "22.6.1",
++			"resolved": "https://registry.npmjs.org/puppeteer/-/puppeteer-22.6.1.tgz",
++			"integrity": "sha512-736QHNKtPD4tPeFbIn73E4l0CWsLzvRFlm0JsLG/VsyM8Eh0FRFNmMp+M3+GSMwdmYxqOVpTgzB6VQDxWxu8xQ==",
+ 			"dev": true,
+ 			"hasInstallScript": true,
+ 			"dependencies": {
+ 				"@puppeteer/browsers": "2.2.0",
+ 				"cosmiconfig": "9.0.0",
+ 				"devtools-protocol": "0.0.1262051",
+-				"puppeteer-core": "22.6.0"
++				"puppeteer-core": "22.6.1"
+ 			},
+ 			"bin": {
+ 				"puppeteer": "lib/esm/puppeteer/node/cli.js"
+@@ -6063,13 +6082,13 @@
+ 			}
+ 		},
+ 		"node_modules/puppeteer-core": {
+-			"version": "22.6.0",
+-			"resolved": "https://registry.npmjs.org/puppeteer-core/-/puppeteer-core-22.6.0.tgz",
+-			"integrity": "sha512-xclyGFhxHfZ9l62uXFm+JpgtJHLIZ1qHc7iR4eaIqBNKA5Dg2sDr8yvylfCx5bMN89QWIaxpV6IHsy0qUynK/g==",
++			"version": "22.6.1",
++			"resolved": "https://registry.npmjs.org/puppeteer-core/-/puppeteer-core-22.6.1.tgz",
++			"integrity": "sha512-rShSd0xtyDSEJYys5nnzQnnwtrafQWg/lWCppyjZIIbYadWP8B1u0XJD/Oe+Xgw8v1hLHX0loNoA0ItRmNLnBg==",
+ 			"dev": true,
+ 			"dependencies": {
+ 				"@puppeteer/browsers": "2.2.0",
+-				"chromium-bidi": "0.5.13",
++				"chromium-bidi": "0.5.14",
+ 				"debug": "4.3.4",
+ 				"devtools-protocol": "0.0.1262051",
+ 				"ws": "8.16.0"
+@@ -6292,15 +6311,6 @@
+ 				"url": "https://github.com/sponsors/isaacs"
+ 			}
+ 		},
+-		"node_modules/rimraf/node_modules/brace-expansion": {
+-			"version": "2.0.1",
+-			"resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-2.0.1.tgz",
+-			"integrity": "sha512-XnAIvQ8eM+kC6aULx6wuQiwVsnzsi9d3WxzV3FpWTGA19F621kwdbsAcFKXgKUHZWsy+mY6iL1sHTxWEFCytDA==",
+-			"dev": true,
+-			"dependencies": {
+-				"balanced-match": "^1.0.0"
+-			}
+-		},
+ 		"node_modules/rimraf/node_modules/glob": {
+ 			"version": "10.3.10",
+ 			"resolved": "https://registry.npmjs.org/glob/-/glob-10.3.10.tgz",
+@@ -6323,21 +6333,6 @@
+ 				"url": "https://github.com/sponsors/isaacs"
+ 			}
+ 		},
+-		"node_modules/rimraf/node_modules/minimatch": {
+-			"version": "9.0.3",
+-			"resolved": "https://registry.npmjs.org/minimatch/-/minimatch-9.0.3.tgz",
+-			"integrity": "sha512-RHiac9mvaRw0x3AYRgDC1CxAP7HTcNrrECeA8YYJeWnpo+2Q5CegtZjaotWTWxDG3UeGA1coE05iH1mPjT/2mg==",
+-			"dev": true,
+-			"dependencies": {
+-				"brace-expansion": "^2.0.1"
+-			},
+-			"engines": {
+-				"node": ">=16 || 14 >=14.17"
+-			},
+-			"funding": {
+-				"url": "https://github.com/sponsors/isaacs"
+-			}
+-		},
+ 		"node_modules/run-parallel": {
+ 			"version": "1.2.0",
+ 			"resolved": "https://registry.npmjs.org/run-parallel/-/run-parallel-1.2.0.tgz",
+@@ -6464,19 +6459,6 @@
+ 				"npm": ">= 3.0.0"
+ 			}
+ 		},
+-		"node_modules/smoothly": {
+-			"version": "0.3.65",
+-			"resolved": "https://registry.npmjs.org/smoothly/-/smoothly-0.3.65.tgz",
+-			"integrity": "sha512-lZfP/onnUojVkfvsOkSTveuehvYWhdRMcfvSWQ5w2AjGxWLvBUT9nFd4e4xmkHwyrJRkqmmM5tmkRc4CsC7ZDA==",
+-			"dependencies": {
+-				"authly": "3.0.11",
+-				"isoly": "^2.0.31",
+-				"langly": "2.0.8",
+-				"normalize.css": "^8.0.1",
+-				"stencil-router-v2": "^0.6.0",
+-				"tidily": "^0.0.68"
+-			}
+-		},
+ 		"node_modules/socks": {
+ 			"version": "2.8.1",
+ 			"resolved": "https://registry.npmjs.org/socks/-/socks-2.8.1.tgz",
+@@ -6515,9 +6497,9 @@
+ 			}
+ 		},
+ 		"node_modules/source-map-js": {
+-			"version": "0.6.2",
+-			"resolved": "https://registry.npmjs.org/source-map-js/-/source-map-js-0.6.2.tgz",
+-			"integrity": "sha512-/3GptzWzu0+0MBQFrDKzw/DvvMTUORvgY6k6jd/VS6iCR4RDTKWH6v6WPwQoUO8667uQEf9Oe38DxAYWY5F/Ug==",
++			"version": "1.2.0",
++			"resolved": "https://registry.npmjs.org/source-map-js/-/source-map-js-1.2.0.tgz",
++			"integrity": "sha512-itJW8lvSA0TXEphiRoawsCksnlf8SyvmFzIhltqAHluXd88pkCd+cXJVHTDwdCr0IzwptSm035IHQktUu1QUMg==",
+ 			"dev": true,
+ 			"engines": {
+ 				"node": ">=0.10.0"
+@@ -6570,17 +6552,6 @@
+ 				"url": "https://github.com/sponsors/wooorm"
+ 			}
+ 		},
+-		"node_modules/stencil-router-v2": {
+-			"version": "0.6.0",
+-			"resolved": "https://registry.npmjs.org/stencil-router-v2/-/stencil-router-v2-0.6.0.tgz",
+-			"integrity": "sha512-E6ncNTIbFOleADelSQ7V/aSkZvdyTW8OKpPqxLi3AdUf8EwN0vZAMsIKHyPPS2hHLCh2/qNyVb/pbnzOszYBCw==",
+-			"dependencies": {
+-				"@stencil/store": "^1.1.0"
+-			},
+-			"peerDependencies": {
+-				"@stencil/core": ">=1.10.0"
+-			}
+-		},
+ 		"node_modules/streamx": {
+ 			"version": "2.16.1",
+ 			"resolved": "https://registry.npmjs.org/streamx/-/streamx-2.16.1.tgz",
+@@ -6754,6 +6725,28 @@
+ 				"node": ">=8"
+ 			}
+ 		},
++		"node_modules/test-exclude/node_modules/brace-expansion": {
++			"version": "1.1.11",
++			"resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.11.tgz",
++			"integrity": "sha512-iCuPHDFgrHX7H2vEI/5xpz07zSHB00TpugqhmYtVmMO6518mCuRMoOYFldEBl0g187ufozdaHgWKcYFb61qGiA==",
++			"dev": true,
++			"dependencies": {
++				"balanced-match": "^1.0.0",
++				"concat-map": "0.0.1"
++			}
++		},
++		"node_modules/test-exclude/node_modules/minimatch": {
++			"version": "3.1.2",
++			"resolved": "https://registry.npmjs.org/minimatch/-/minimatch-3.1.2.tgz",
++			"integrity": "sha512-J7p63hRiAjw1NDEww1W7i37+ByIrOWO5XQQAzZ3VOcL0PNybwpfmV/N05zFAzwQ9USyEcX6t3UO+K5aqBQOIHw==",
++			"dev": true,
++			"dependencies": {
++				"brace-expansion": "^1.1.7"
++			},
++			"engines": {
++				"node": "*"
++			}
++		},
+ 		"node_modules/text-table": {
+ 			"version": "0.2.0",
+ 			"resolved": "https://registry.npmjs.org/text-table/-/text-table-0.2.0.tgz",
+@@ -6766,14 +6759,6 @@
+ 			"integrity": "sha512-w89qg7PI8wAdvX60bMDP+bFoD5Dvhm9oLheFp5O4a2QF0cSBGsBX4qZmadPMvVqlLJBBci+WqGGOAPvcDeNSVg==",
+ 			"dev": true
+ 		},
+-		"node_modules/tidily": {
+-			"version": "0.0.68",
+-			"resolved": "https://registry.npmjs.org/tidily/-/tidily-0.0.68.tgz",
+-			"integrity": "sha512-InOJRLkA7oXggVZZfHzJwINvZDNW4CMs/O1hdsC+azxehS0XOrbb6jI1DAQ+ZcdFJJ4894WcZdeaGIbLAamPDQ==",
+-			"dependencies": {
+-				"isoly": "^2.3.6"
+-			}
+-		},
+ 		"node_modules/tmpl": {
+ 			"version": "1.0.5",
+ 			"resolved": "https://registry.npmjs.org/tmpl/-/tmpl-1.0.5.tgz",
+@@ -6805,6 +6790,7 @@
+ 			"version": "1.0.1",
+ 			"resolved": "https://registry.npmjs.org/trim/-/trim-1.0.1.tgz",
+ 			"integrity": "sha512-3JVP2YVqITUisXblCDq/Bi4P9457G/sdEamInkyvCsjbTcXLXIiG7XCb4kGMFWh6JGXesS3TKxOPtrncN/xe8w==",
++			"deprecated": "Use String.prototype.trim() instead",
+ 			"dev": true
+ 		},
+ 		"node_modules/trim-trailing-lines": {
+@@ -6883,9 +6869,9 @@
+ 			}
+ 		},
+ 		"node_modules/tslib": {
+-			"version": "2.4.1",
+-			"resolved": "https://registry.npmjs.org/tslib/-/tslib-2.4.1.tgz",
+-			"integrity": "sha512-tGyy4dAjRIEwI7BzsB0lynWgOpfqjUdq91XXAlIWD2OwKBH7oCl/GZG/HT4BOHrTlPMOASlMQ7veyTqpmRcrNA==",
++			"version": "2.6.2",
++			"resolved": "https://registry.npmjs.org/tslib/-/tslib-2.6.2.tgz",
++			"integrity": "sha512-AEYxH93jGFPn/a2iVAwW87VuUIkR1FVUKB77NwMF7nBTDkDrrT/Hpt/IrCJ0QXhW27jTBDcf5ZY7w6RiqTMw2Q==",
+ 			"dev": true
+ 		},
+ 		"node_modules/tsutils": {
+diff --git a/package.json b/package.json
+index 96246a3..dcabda4 100644
+--- a/package.json
++++ b/package.json
+@@ -1,15 +1,27 @@
+ {
+-	"name": "ui-template",
++	"name": "ui-cde-widgets",
+ 	"private": true,
+-	"version": "0.0.5",
+-	"description": "Template with Stencil and Utily/smoothly-app",
++	"version": "0.0.1",
++	"description": "Widgets for pax2pay cde.",
+ 	"author": "Utily Contributors",
+ 	"license": "MIT",
+-	"repository": "https://github.com/utily/ui-template",
++	"main": "dist/index.cjs.js",
++	"module": "dist/index.js",
++	"es2015": "dist/esm/index.js",
++	"es2017": "dist/esm/index.js",
++	"types": "dist/custom-elements/index.d.ts",
++	"collection:main": "dist/collection/index.js",
++	"collection": "dist/collection/collection-manifest.json",
++	"unpkg": "dist/p2p-cde/p2p-cde.esm.js",
++	"files": [
++		"dist/",
++		"loader/"
++	],
++	"repository": "https://github.com/pax2pay/ui-cde-widgets",
+ 	"bugs": {
+-		"url": "https://github.com/utily/ui-template/issues"
++		"url": "https://github.com/pax2pay/ui-cde-widgets"
+ 	},
+-	"homepage": "https://github.com/utily/ui-template",
++	"homepage": "https://github.com/pax2pay/ui-cde-widgets",
+ 	"git": {
+ 		"tagName": "v${version}"
+ 	},
+@@ -55,20 +67,19 @@
+ 	},
+ 	"dependencies": {
+ 		"@pax2pay/model-cde": "^0.0.61",
+-		"gracely": "^2.0.8",
+-		"smoothly": "^0.3.65"
++		"gracely": "^2.0.8"
+ 	},
+ 	"devDependencies": {
+-		"@stencil/core": "4.13.0",
++		"@stencil/core": "2.22.3",
+ 		"@types/jest": "^29.5.12",
+ 		"@typescript-eslint/eslint-plugin": "7.3.1",
+ 		"@typescript-eslint/parser": "7.3.1",
+ 		"eslint": "^8.57.0",
+-		"eslint-plugin-prettierx": "github:utily/eslint-plugin-prettierx#utily-20221229",
++		"eslint-plugin-prettierx": "github:utily/eslint-plugin-prettierx#utily-20231004",
+ 		"eslint-plugin-simple-import-sort": "^12.0.0",
+ 		"jest": "^29.7.0",
+ 		"jest-cli": "^29.7.0",
+-		"prettierx": "github:utily/prettierx#utily-20221229",
++		"prettierx": "github:utily/prettierx#utily-20231004",
+ 		"puppeteer": "^22.6.0",
+ 		"rimraf": "^5.0.5",
+ 		"ts-jest": "^29.1.2",
+diff --git a/src/assets/style/common.css b/src/assets/style/common.css
+index df6f1b0..1844a01 100644
+--- a/src/assets/style/common.css
++++ b/src/assets/style/common.css
+@@ -235,7 +235,7 @@ smoothly-selector>main {
+ 	white-space: nowrap;
+ }
+ 
+-p2p-user-table-row-expansion smoothly-selector>main {
++p2p-cde-user-table-row-expansion smoothly-selector>main {
+ 	padding: 0.4rem;
+ }
+ 
+@@ -291,29 +291,29 @@ svg:hover {
+ 	cursor: pointer;
+ }
+ 
+-p2p-display-schedule smoothly-table.sc-p2p-payment-schedule-table,
++p2p-cde-display-schedule smoothly-table.sc-p2p-cde-payment-schedule-table,
+ .sc-smoothly-table-h {
+ 	border: 2px solid rgb(var(--smoothly-dark-color), 0.5);
+ }
+ 
+-p2p-display-schedule .sc-p2p-payment-schedule-table-row-h {
++p2p-cde-display-schedule .sc-p2p-cde-payment-schedule-table-row-h {
+ 	border: 1px solid rgb(var(--smoothly-dark-color), 0.5)
+ }
+ 
+-p2p-pdf-button>smoothly-submit>button,
+-p2p-print-button>smoothly-submit>button {
++p2p-cde-pdf-button>smoothly-submit>button,
++p2p-cde-print-button>smoothly-submit>button {
+ 	display: flex;
+ 	flex-direction: row;
+ 	align-items: center;
+ 	margin: auto;
+ }
+ 
+-p2p-payment-batch-create button {
++p2p-cde-payment-batch-create button {
+ 	color: rgb(var(--smoothly-default-color));
+ }
+ 
+-p2p-payment-batch-item smoothly-table.sc-p2p-schedule-table,
+-p2p-payment-batch-item .sc-p2p-table-row-h:hover {
++p2p-cde-payment-batch-item smoothly-table.sc-p2p-cde-schedule-table,
++p2p-cde-payment-batch-item .sc-p2p-cde-table-row-h:hover {
+ 	background-color: transparent;
+ }
+ 
+@@ -326,7 +326,7 @@ smoothly-notification>p {
+ 	justify-content: center;
+ }
+ 
+-p2p-card-create main.sc-p2p-scheduled-payment-table {
++p2p-cde-card-create main.sc-p2p-cde-scheduled-payment-table {
+ 	column-gap: 3em;
+ }
+ 
+@@ -420,7 +420,7 @@ smoothly-input-month smoothly-icon[fill=solid] {
+ 	stroke: rgb(var(--smoothly-default-contrast));
+ }
+ 
+-p2p-account-statement-table smoothly-input {
++p2p-cde-account-statement-table smoothly-input {
+ 	white-space: nowrap;
+ }
+ 
+@@ -435,14 +435,14 @@ smoothly-button a {
+ 	padding: 0;
+ }
+ 
+-p2p-card-single svg {
++p2p-cde-card-single svg {
+ 	right: initial;
+ 	border: none;
+ 	border-top: none;
+ 	box-shadow: none;
+ }
+ 
+-p2p-payment-batch-item .sc-smoothly-table-expandable-cell-h smoothly-icon.sc-smoothly-table-expandable-cell {
++p2p-cde-payment-batch-item .sc-smoothly-table-expandable-cell-h smoothly-icon.sc-smoothly-table-expandable-cell {
+ 	width: 1.2rem;
+ }
+ 
+@@ -450,40 +450,40 @@ smoothly-trigger svg {
+ 	vertical-align: inherit;
+ }
+ 
+-p2p-user-table-row>.sc-smoothly-dialog-h>main.sc-smoothly-dialog {
++p2p-cde-user-table-row>.sc-smoothly-dialog-h>main.sc-smoothly-dialog {
+ 	padding: 2rem;
+ 	display: grid;
+ 	text-align: center;
+ 	margin: 25rem auto;
+ }
+ 
+-p2p-user-table-row>.sc-smoothly-dialog-h>main.sc-smoothly-dialog>div {
++p2p-cde-user-table-row>.sc-smoothly-dialog-h>main.sc-smoothly-dialog>div {
+ 	display: flex;
+ 	justify-content: center;
+ }
+ 
+-p2p-user-table-row>.sc-smoothly-dialog-h>header.sc-smoothly-dialog {
++p2p-cde-user-table-row>.sc-smoothly-dialog-h>header.sc-smoothly-dialog {
+ 	display: none;
+ }
+ 
+-p2p-user-table-row[hidden].sc-p2p-user-table>tr>td>div.slot-detail.sc-smoothly-table-expandable-row {
++p2p-cde-user-table-row[hidden].sc-p2p-cde-user-table>tr>td>div.slot-detail.sc-smoothly-table-expandable-row {
+ 	box-shadow: none;
+ }
+ 
+-p2p-account-statement-table .sc-smoothly-table-expandable-row-h smoothly-icon.sc-smoothly-table-expandable-row {
++p2p-cde-account-statement-table .sc-smoothly-table-expandable-row-h smoothly-icon.sc-smoothly-table-expandable-row {
+ 	margin-top: 0.75rem;
+ 	margin-left: 1.5rem;
+ }
+ 
+-p2p-user-batch-item input.sc-smoothly-input {
++p2p-cde-user-batch-item input.sc-smoothly-input {
+ 	padding: 0.75rem;
+ }
+ 
+-p2p-user-table .sc-smoothly-table-expandable-row-h smoothly-icon.sc-smoothly-table-expandable-row {
++p2p-cde-user-table .sc-smoothly-table-expandable-row-h smoothly-icon.sc-smoothly-table-expandable-row {
+ 	margin-top: 1rem;
+ }
+ 
+-p2p-card-table-row>.sc-smoothly-table-expandable-row-h smoothly-icon.sc-smoothly-table-expandable-row {
++p2p-cde-card-table-row>.sc-smoothly-table-expandable-row-h smoothly-icon.sc-smoothly-table-expandable-row {
+ 	margin-top: 2rem;
+ }
+ 
+@@ -509,7 +509,7 @@ smoothly-button[disabled] {
+ 	pointer-events: none;
+ }
+ 
+-p2p-meta-summary>smoothly-input>div>input {
++p2p-cde-meta-summary>smoothly-input>div>input {
+ 	text-overflow: ellipsis;
+ 	overflow: hidden;
+ 	white-space: nowrap;
+@@ -523,7 +523,7 @@ smoothly-input:not([disabled])>div>input {
+ 	cursor: text;
+ }
+ 
+-p2p-card-table-filter div>smoothly-icon.sc-p2p-search-input {
++p2p-cde-card-table-filter div>smoothly-icon.sc-p2p-cde-search-input {
+ 	display: none;
+ }
+ 
+@@ -531,12 +531,12 @@ smoothly-button>button {
+ 	height: 100%;
+ }
+ 
+-p2p-card-table-row [open].sc-smoothly-table-expandable-row-h {
++p2p-cde-card-table-row [open].sc-smoothly-table-expandable-row-h {
+ 	z-index: 0;
+ }
+ 
+-smoothly-selector.sc-p2p-balance-selector,
+-smoothly-selector.sc-p2p-account-selector {
++smoothly-selector.sc-p2p-cde-balance-selector,
++smoothly-selector.sc-p2p-cde-account-selector {
+ 	width: 100%;
+ }
+ 
+@@ -544,11 +544,11 @@ smoothly-selector.sc-p2p-account-selector {
+ 	height: inherit;
+ }
+ 
+-smoothly-input-date-range.sc-p2p-account-statement-filter label {
++smoothly-input-date-range.sc-p2p-cde-account-statement-filter label {
+ 	display: none;
+ }
+ 
+-smoothly-input-date-range.sc-p2p-account-statement-filter input {
++smoothly-input-date-range.sc-p2p-cde-account-statement-filter input {
+ 	padding: 0.75rem;
+ }
+ 
+@@ -574,7 +574,7 @@ smoothly-spinner svg {
+ 	box-shadow: none !important;
+ }
+ 
+-smoothly-button.sc-p2p-user-view {
++smoothly-button.sc-p2p-cde-user-view {
+ 	padding: 0;
+ }
+ 
+diff --git a/src/components.d.ts b/src/components.d.ts
+index 6410476..c43273e 100644
+--- a/src/components.d.ts
++++ b/src/components.d.ts
+@@ -8,174 +8,133 @@ import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
+ import { Card } from "@pax2pay/model-cde";
+ import { Error } from "gracely";
+ import { Message } from "./components/iframe/key-generate/Message";
+-export { Card } from "@pax2pay/model-cde";
+-export { Error } from "gracely";
+-export { Message } from "./components/iframe/key-generate/Message";
+ export namespace Components {
+-    interface AppHome {
+-    }
+-    interface P2pCardButton {
++    interface P2pCdeCardButton {
+         "card"?: Card.Token | Error;
+         "cardHolderName"?: string;
+-        "height": string;
+         "nameAlreadyEncoded": boolean;
+         "task": "print" | "pdf";
+-        "width": string;
+     }
+-    interface P2pCardDisplay {
++    interface P2pCdeCardDisplay {
+         "card"?: Card.Token | Error;
+         "cardPart": "pan" | "csc" | "expires";
+         "feature"?: "copy";
+         "format"?: "plain" | "labelled";
+     }
+-    interface P2pCardIframe {
++    interface P2pCdeCardIframe {
+         "buttons": boolean;
+         "cardHolderName"?: string;
+-        "height"?: string;
+         "nameAlreadyEncoded": boolean;
+         "token"?: Card.Token | Error;
+-        "width"?: string;
+     }
+-    interface P2pCardInput {
++    interface P2pCdeCardInput {
+     }
+-    interface P2pCardKeyGenerate {
++    interface P2pCdeCardKeyGenerate {
+         "generate": () => Promise<Message>;
+         "parent"?: string;
+     }
+-    interface P2pVirtualCard {
++    interface P2pCdeVirtualCard {
+         "card"?: Card.Token | Error;
+         "cardHolderName"?: string;
+         "company"?: string;
+-        "height": string;
+         "nameAlreadyEncoded": boolean;
+-        "width": string;
+-    }
+-    interface TemplatePortal {
+     }
+ }
+ declare global {
+-    interface HTMLAppHomeElement extends Components.AppHome, HTMLStencilElement {
+-    }
+-    var HTMLAppHomeElement: {
+-        prototype: HTMLAppHomeElement;
+-        new (): HTMLAppHomeElement;
+-    };
+-    interface HTMLP2pCardButtonElement extends Components.P2pCardButton, HTMLStencilElement {
++    interface HTMLP2pCdeCardButtonElement extends Components.P2pCdeCardButton, HTMLStencilElement {
+     }
+-    var HTMLP2pCardButtonElement: {
+-        prototype: HTMLP2pCardButtonElement;
+-        new (): HTMLP2pCardButtonElement;
++    var HTMLP2pCdeCardButtonElement: {
++        prototype: HTMLP2pCdeCardButtonElement;
++        new (): HTMLP2pCdeCardButtonElement;
+     };
+-    interface HTMLP2pCardDisplayElement extends Components.P2pCardDisplay, HTMLStencilElement {
++    interface HTMLP2pCdeCardDisplayElement extends Components.P2pCdeCardDisplay, HTMLStencilElement {
+     }
+-    var HTMLP2pCardDisplayElement: {
+-        prototype: HTMLP2pCardDisplayElement;
+-        new (): HTMLP2pCardDisplayElement;
++    var HTMLP2pCdeCardDisplayElement: {
++        prototype: HTMLP2pCdeCardDisplayElement;
++        new (): HTMLP2pCdeCardDisplayElement;
+     };
+-    interface HTMLP2pCardIframeElement extends Components.P2pCardIframe, HTMLStencilElement {
++    interface HTMLP2pCdeCardIframeElement extends Components.P2pCdeCardIframe, HTMLStencilElement {
+     }
+-    var HTMLP2pCardIframeElement: {
+-        prototype: HTMLP2pCardIframeElement;
+-        new (): HTMLP2pCardIframeElement;
++    var HTMLP2pCdeCardIframeElement: {
++        prototype: HTMLP2pCdeCardIframeElement;
++        new (): HTMLP2pCdeCardIframeElement;
+     };
+-    interface HTMLP2pCardInputElement extends Components.P2pCardInput, HTMLStencilElement {
++    interface HTMLP2pCdeCardInputElement extends Components.P2pCdeCardInput, HTMLStencilElement {
+     }
+-    var HTMLP2pCardInputElement: {
+-        prototype: HTMLP2pCardInputElement;
+-        new (): HTMLP2pCardInputElement;
++    var HTMLP2pCdeCardInputElement: {
++        prototype: HTMLP2pCdeCardInputElement;
++        new (): HTMLP2pCdeCardInputElement;
+     };
+-    interface HTMLP2pCardKeyGenerateElement extends Components.P2pCardKeyGenerate, HTMLStencilElement {
++    interface HTMLP2pCdeCardKeyGenerateElement extends Components.P2pCdeCardKeyGenerate, HTMLStencilElement {
+     }
+-    var HTMLP2pCardKeyGenerateElement: {
+-        prototype: HTMLP2pCardKeyGenerateElement;
+-        new (): HTMLP2pCardKeyGenerateElement;
++    var HTMLP2pCdeCardKeyGenerateElement: {
++        prototype: HTMLP2pCdeCardKeyGenerateElement;
++        new (): HTMLP2pCdeCardKeyGenerateElement;
+     };
+-    interface HTMLP2pVirtualCardElement extends Components.P2pVirtualCard, HTMLStencilElement {
++    interface HTMLP2pCdeVirtualCardElement extends Components.P2pCdeVirtualCard, HTMLStencilElement {
+     }
+-    var HTMLP2pVirtualCardElement: {
+-        prototype: HTMLP2pVirtualCardElement;
+-        new (): HTMLP2pVirtualCardElement;
+-    };
+-    interface HTMLTemplatePortalElement extends Components.TemplatePortal, HTMLStencilElement {
+-    }
+-    var HTMLTemplatePortalElement: {
+-        prototype: HTMLTemplatePortalElement;
+-        new (): HTMLTemplatePortalElement;
++    var HTMLP2pCdeVirtualCardElement: {
++        prototype: HTMLP2pCdeVirtualCardElement;
++        new (): HTMLP2pCdeVirtualCardElement;
+     };
+     interface HTMLElementTagNameMap {
+-        "app-home": HTMLAppHomeElement;
+-        "p2p-card-button": HTMLP2pCardButtonElement;
+-        "p2p-card-display": HTMLP2pCardDisplayElement;
+-        "p2p-card-iframe": HTMLP2pCardIframeElement;
+-        "p2p-card-input": HTMLP2pCardInputElement;
+-        "p2p-card-key-generate": HTMLP2pCardKeyGenerateElement;
+-        "p2p-virtual-card": HTMLP2pVirtualCardElement;
+-        "template-portal": HTMLTemplatePortalElement;
++        "p2p-cde-card-button": HTMLP2pCdeCardButtonElement;
++        "p2p-cde-card-display": HTMLP2pCdeCardDisplayElement;
++        "p2p-cde-card-iframe": HTMLP2pCdeCardIframeElement;
++        "p2p-cde-card-input": HTMLP2pCdeCardInputElement;
++        "p2p-cde-card-key-generate": HTMLP2pCdeCardKeyGenerateElement;
++        "p2p-cde-virtual-card": HTMLP2pCdeVirtualCardElement;
+     }
+ }
+ declare namespace LocalJSX {
+-    interface AppHome {
+-    }
+-    interface P2pCardButton {
++    interface P2pCdeCardButton {
+         "card"?: Card.Token | Error;
+         "cardHolderName"?: string;
+-        "height"?: string;
+         "nameAlreadyEncoded"?: boolean;
+         "task"?: "print" | "pdf";
+-        "width"?: string;
+     }
+-    interface P2pCardDisplay {
++    interface P2pCdeCardDisplay {
+         "card"?: Card.Token | Error;
+         "cardPart"?: "pan" | "csc" | "expires";
+         "feature"?: "copy";
+         "format"?: "plain" | "labelled";
+     }
+-    interface P2pCardIframe {
++    interface P2pCdeCardIframe {
+         "buttons"?: boolean;
+         "cardHolderName"?: string;
+-        "height"?: string;
+         "nameAlreadyEncoded"?: boolean;
+         "token"?: Card.Token | Error;
+-        "width"?: string;
+     }
+-    interface P2pCardInput {
++    interface P2pCdeCardInput {
+     }
+-    interface P2pCardKeyGenerate {
++    interface P2pCdeCardKeyGenerate {
+         "parent"?: string;
+     }
+-    interface P2pVirtualCard {
++    interface P2pCdeVirtualCard {
+         "card"?: Card.Token | Error;
+         "cardHolderName"?: string;
+         "company"?: string;
+-        "height"?: string;
+         "nameAlreadyEncoded"?: boolean;
+-        "width"?: string;
+-    }
+-    interface TemplatePortal {
+     }
+     interface IntrinsicElements {
+-        "app-home": AppHome;
+-        "p2p-card-button": P2pCardButton;
+-        "p2p-card-display": P2pCardDisplay;
+-        "p2p-card-iframe": P2pCardIframe;
+-        "p2p-card-input": P2pCardInput;
+-        "p2p-card-key-generate": P2pCardKeyGenerate;
+-        "p2p-virtual-card": P2pVirtualCard;
+-        "template-portal": TemplatePortal;
++        "p2p-cde-card-button": P2pCdeCardButton;
++        "p2p-cde-card-display": P2pCdeCardDisplay;
++        "p2p-cde-card-iframe": P2pCdeCardIframe;
++        "p2p-cde-card-input": P2pCdeCardInput;
++        "p2p-cde-card-key-generate": P2pCdeCardKeyGenerate;
++        "p2p-cde-virtual-card": P2pCdeVirtualCard;
+     }
+ }
+ export { LocalJSX as JSX };
+ declare module "@stencil/core" {
+     export namespace JSX {
+         interface IntrinsicElements {
+-            "app-home": LocalJSX.AppHome & JSXBase.HTMLAttributes<HTMLAppHomeElement>;
+-            "p2p-card-button": LocalJSX.P2pCardButton & JSXBase.HTMLAttributes<HTMLP2pCardButtonElement>;
+-            "p2p-card-display": LocalJSX.P2pCardDisplay & JSXBase.HTMLAttributes<HTMLP2pCardDisplayElement>;
+-            "p2p-card-iframe": LocalJSX.P2pCardIframe & JSXBase.HTMLAttributes<HTMLP2pCardIframeElement>;
+-            "p2p-card-input": LocalJSX.P2pCardInput & JSXBase.HTMLAttributes<HTMLP2pCardInputElement>;
+-            "p2p-card-key-generate": LocalJSX.P2pCardKeyGenerate & JSXBase.HTMLAttributes<HTMLP2pCardKeyGenerateElement>;
+-            "p2p-virtual-card": LocalJSX.P2pVirtualCard & JSXBase.HTMLAttributes<HTMLP2pVirtualCardElement>;
+-            "template-portal": LocalJSX.TemplatePortal & JSXBase.HTMLAttributes<HTMLTemplatePortalElement>;
++            "p2p-cde-card-button": LocalJSX.P2pCdeCardButton & JSXBase.HTMLAttributes<HTMLP2pCdeCardButtonElement>;
++            "p2p-cde-card-display": LocalJSX.P2pCdeCardDisplay & JSXBase.HTMLAttributes<HTMLP2pCdeCardDisplayElement>;
++            "p2p-cde-card-iframe": LocalJSX.P2pCdeCardIframe & JSXBase.HTMLAttributes<HTMLP2pCdeCardIframeElement>;
++            "p2p-cde-card-input": LocalJSX.P2pCdeCardInput & JSXBase.HTMLAttributes<HTMLP2pCdeCardInputElement>;
++            "p2p-cde-card-key-generate": LocalJSX.P2pCdeCardKeyGenerate & JSXBase.HTMLAttributes<HTMLP2pCdeCardKeyGenerateElement>;
++            "p2p-cde-virtual-card": LocalJSX.P2pCdeVirtualCard & JSXBase.HTMLAttributes<HTMLP2pCdeVirtualCardElement>;
+         }
+     }
+ }
+diff --git a/src/components/app-home/app-home.css b/src/components/app-home/app-home.css
+deleted file mode 100644
+index cd1b9bd..0000000
+--- a/src/components/app-home/app-home.css
++++ /dev/null
+@@ -1,7 +0,0 @@
+-.app-home {
+-	height: 200px;
+-	display: flex;
+-	align-items: center;
+-	gap: 10px;
+-	justify-content: center;
+-}
+diff --git a/src/components/app-home/app-home.e2e.ts b/src/components/app-home/app-home.e2e.ts
+deleted file mode 100644
+index 685d3f6..0000000
+--- a/src/components/app-home/app-home.e2e.ts
++++ /dev/null
+@@ -1,19 +0,0 @@
+-import { newE2EPage } from "@stencil/core/testing"
+-
+-describe("app-home", () => {
+-	it("renders", async () => {
+-		const page = await newE2EPage()
+-		await page.setContent("<app-home></app-home>")
+-
+-		const element = await page.find("app-home")
+-		expect(element).toHaveClass("hydrated")
+-	})
+-
+-	it('contains a "Profile Page" button', async () => {
+-		const page = await newE2EPage()
+-		await page.setContent("<app-home></app-home>")
+-
+-		const element = await page.find("app-home >>> span")
+-		expect(element.textContent).toEqual("Hello world!")
+-	})
+-})
+diff --git a/src/components/app-home/app-home.tsx b/src/components/app-home/app-home.tsx
+deleted file mode 100644
+index cae20ba..0000000
+--- a/src/components/app-home/app-home.tsx
++++ /dev/null
+@@ -1,17 +0,0 @@
+-import { Component, h } from "@stencil/core"
+-
+-@Component({
+-	tag: "app-home",
+-	styleUrl: "app-home.css",
+-	shadow: true,
+-})
+-export class AppHome {
+-	render() {
+-		return (
+-			<div class="app-home">
+-				<span>Hello world!</span>
+-				<smoothly-icon name="airplane" fill="clear" size="large"></smoothly-icon>
+-			</div>
+-		)
+-	}
+-}
+diff --git a/src/components/iframe/button/index.tsx b/src/components/iframe/button/index.tsx
+index f70eb99..a161209 100644
+--- a/src/components/iframe/button/index.tsx
++++ b/src/components/iframe/button/index.tsx
+@@ -1,37 +1,47 @@
+-import { Component, h, Prop } from "@stencil/core"
++import { Component, ComponentWillLoad, h, Host, Prop, State, VNode } from "@stencil/core"
+ import { cryptly } from "cryptly"
+ import { Error } from "gracely"
+ import { Card } from "@pax2pay/model-cde"
++import { model } from "../../../model"
+ 
+ @Component({
+-	tag: "p2p-card-button",
++	tag: "p2p-cde-card-button",
+ 	styleUrl: "style.css",
+ 	scoped: true,
+ })
+-export class P2pCardButton {
++export class P2pCardButton implements ComponentWillLoad {
+ 	@Prop() task: "print" | "pdf"
+ 	@Prop({ mutable: true }) card?: Card.Token | Error
+ 	@Prop({ mutable: true }) cardHolderName?: string
+ 	// when we're loading this from a card link, mpay will have already base64 encoded the card holders name
+ 	// if the portal is displaying a card that its just created, it won't be encoded
+ 	@Prop() nameAlreadyEncoded = false
+-	@Prop() width = "100%"
+-	@Prop() height = "50"
+-	render() {
+-		return [
+-			<iframe
+-				width={this.width}
+-				height={this.height}
+-				frameBorder="0"
+-				scrolling="no"
+-				src={
+-					`${process.env.uiCdeUrl}/${this.task}/${this.card}` +
+-					(this.cardHolderName
+-						? !this.nameAlreadyEncoded
+-							? `?ch=${cryptly.Base64.encode(this.cardHolderName, "url")}`
+-							: `?ch=${this.cardHolderName}`
+-						: "")
+-				}></iframe>,
+-		]
++	@State() url?: string
++
++	componentWillLoad(): void {
++		model.state.targets.listen("change", target => (this.url = target.url))
++	}
++
++	render(): VNode | VNode[] {
++		return (
++			<Host>
++				{!this.url || window.location.href.includes(this.url) ? (
++					[]
++				) : (
++					<iframe
++						frameBorder="0"
++						scrolling="no"
++						src={
++							`${this.url}/${this.task}/${this.card}` +
++							(this.cardHolderName
++								? !this.nameAlreadyEncoded
++									? `?ch=${cryptly.Base64.encode(this.cardHolderName, "url")}`
++									: `?ch=${this.cardHolderName}`
++								: "")
++						}
++					/>
++				)}
++			</Host>
++		)
+ 	}
+ }
+diff --git a/src/components/iframe/button/style.css b/src/components/iframe/button/style.css
+index e69de29..338ab07 100644
+--- a/src/components/iframe/button/style.css
++++ b/src/components/iframe/button/style.css
+@@ -0,0 +1,10 @@
++:host {
++	display: flex;
++	width: 100%;
++	height: 50px;
++}
++
++:host iframe {
++	display: flex;
++	width: 100%;
++}
+diff --git a/src/components/iframe/display/index.tsx b/src/components/iframe/display/index.tsx
+index 59ed069..1d47d84 100644
+--- a/src/components/iframe/display/index.tsx
++++ b/src/components/iframe/display/index.tsx
+@@ -1,28 +1,38 @@
+-import { Component, h, Prop } from "@stencil/core"
++import { Component, ComponentWillLoad, h, Host, Prop, State, VNode } from "@stencil/core"
+ import { Error } from "gracely"
+ import { Card } from "@pax2pay/model-cde"
++import { model } from "../../../model"
+ 
+ @Component({
+-	tag: "p2p-card-display",
++	tag: "p2p-cde-card-display",
+ 	styleUrl: "style.css",
+ 	scoped: true,
+ })
+-export class P2pCardDisplay {
++export class P2pCardDisplay implements ComponentWillLoad {
+ 	@Prop() card?: Card.Token | Error
+ 	@Prop() cardPart: "pan" | "csc" | "expires"
+ 	@Prop() format?: "plain" | "labelled"
+ 	@Prop() feature?: "copy"
+-	render() {
++	@State() url?: string
++
++	componentWillLoad(): void {
++		model.state.targets.listen("change", target => (this.url = target.url))
++	}
++
++	render(): VNode | VNode[] {
+ 		return (
+-			<iframe
+-				width="100%"
+-				height="51"
+-				frameBorder="0"
+-				scrolling="no"
+-				allow={`clipboard-write ${process.env.uiCdeUrl}`}
+-				src={`${process.env.uiCdeUrl}/display/${this.card}/${this.cardPart}${
+-					this.format ? "?format=" + this.format : ""
+-				}`}></iframe>
++			<Host>
++				{!this.url || window.location.href.includes(this.url) ? (
++					[]
++				) : (
++					<iframe
++						frameBorder="0"
++						scrolling="no"
++						allow={`clipboard-write ${this.url}`}
++						src={`${this.url}/display/${this.card}/${this.cardPart}${this.format ? "?format=" + this.format : ""}`}
++					/>
++				)}
++			</Host>
+ 		)
+ 	}
+ }
+diff --git a/src/components/iframe/display/style.css b/src/components/iframe/display/style.css
+index e69de29..fb46a56 100644
+--- a/src/components/iframe/display/style.css
++++ b/src/components/iframe/display/style.css
+@@ -0,0 +1,10 @@
++:host {
++	display: flex;
++	width: 100%;
++	height: 51px;
++}
++
++:host iframe {
++	display: flex;
++	width: 100%;
++}
+diff --git a/src/components/iframe/index.spec.ignore.ts b/src/components/iframe/index.spec.ignore.ts
+index 2910685..f888f7b 100644
+--- a/src/components/iframe/index.spec.ignore.ts
++++ b/src/components/iframe/index.spec.ignore.ts
+@@ -6,11 +6,11 @@ describe("test iframe", () => {
+ 	/*	it("get token", async () => {
+ 		const page = await newSpecPage({
+ 			components: [CardIframe],
+-			html: "<p2p-card-iframe></p2p-card-iframe>"
++			html: "<p2p-cde-card-iframe></p2p-cde-card-iframe>"
+ 		})
+-		//await page.setContent("<p2p-card-iframe></p2p-card-iframe>")
+-		const element = page.body.querySelector("p2p-card-iframe")
+-			//await page.find("p2p-card-iframe")
++		//await page.setContent("<p2p-cde-card-iframe></p2p-cde-card-iframe>")
++		const element = page.body.querySelector("p2p-cde-card-iframe")
++			//await page.find("p2p-cde-card-iframe")
+ 		await element.setProperty("card", { pan: "1234567890", expires: [10, 22], csc: "999", lapses: "2022-10-01" })
+ 		await page.waitForChanges()
+ 		const token = await element.getProperty("token")
+@@ -19,13 +19,13 @@ describe("test iframe", () => {
+ 	it("token undefined", async () => {
+ 		const page = await newSpecPage({
+ 			components: [CardIframe],
+-			html: "<p2p-card-iframe token='{test}'></p2p-card-iframe>"
++			html: "<p2p-cde-card-iframe token='{test}'></p2p-cde-card-iframe>"
+ 		})
+ 		await page.waitForChanges()
+ 		expect(page.token).toEqual(test)
+ /!*		const page = await newE2EPage()
+-		await page.setContent("<p2p-card-iframe></p2p-card-iframe>")
+-		const element = await page.find("p2p-card-iframe")
++		await page.setContent("<p2p-cde-card-iframe></p2p-cde-card-iframe>")
++		const element = await page.find("p2p-cde-card-iframe")
+ 		await element.setProperty("token", test)
+ 		await page.waitForChanges()
+ 		const token = await element.getProperty("token")*!/
+diff --git a/src/components/iframe/index.tsx b/src/components/iframe/index.tsx
+index f303f97..d55892d 100644
+--- a/src/components/iframe/index.tsx
++++ b/src/components/iframe/index.tsx
+@@ -1,9 +1,9 @@
+-import { Component, h, Prop } from "@stencil/core"
++import { Component, Fragment, h, Host, Prop, VNode } from "@stencil/core"
+ import { Error } from "gracely"
+ import { Card } from "@pax2pay/model-cde"
+ 
+ @Component({
+-	tag: "p2p-card-iframe",
++	tag: "p2p-cde-card-iframe",
+ 	styleUrl: "style.css",
+ 	scoped: true,
+ })
+@@ -14,41 +14,42 @@ export class CardIframe {
+ 	// if the portal is displaying a card that its just created, it won't be encoded
+ 	@Prop() nameAlreadyEncoded = false
+ 	@Prop() buttons: boolean
+-	@Prop() width?: string = "600"
+-	@Prop() height?: string = "350"
+ 
+-	render() {
+-		return this.token
+-			? [
+-					<div>
+-						<p2p-card-display cardPart="pan" format="labelled" card={this.token}></p2p-card-display>
+-						<p2p-card-display cardPart="expires" format="labelled" card={this.token}></p2p-card-display>
+-						<p2p-card-display cardPart="csc" format="labelled" card={this.token}></p2p-card-display>
+-					</div>,
+-					<p2p-virtual-card
+-						card={this.token}
+-						cardHolderName={this.cardHolderName}
+-						nameAlreadyEncoded={this.nameAlreadyEncoded}
+-						id="iframe"
+-						width={this.width}
+-						height={this.height}></p2p-virtual-card>,
+-					this.buttons ? (
+-						<aside>
+-							<p2p-card-button
+-								task="print"
+-								card={this.token}
+-								cardHolderName={this.cardHolderName}
+-								nameAlreadyEncoded={this.nameAlreadyEncoded}></p2p-card-button>
+-							<p2p-card-button
+-								task="pdf"
+-								card={this.token}
+-								cardHolderName={this.cardHolderName}
+-								nameAlreadyEncoded={this.nameAlreadyEncoded}></p2p-card-button>
+-						</aside>
+-					) : (
+-						""
+-					),
+-			  ]
+-			: ""
++	render(): VNode | VNode[] {
++		return (
++			<Host>
++				{this.token ? (
++					<Fragment>
++						<div>
++							<p2p-cde-card-display cardPart="pan" format="labelled" card={this.token}></p2p-cde-card-display>
++							<p2p-cde-card-display cardPart="expires" format="labelled" card={this.token}></p2p-cde-card-display>
++							<p2p-cde-card-display cardPart="csc" format="labelled" card={this.token}></p2p-cde-card-display>
++						</div>
++						<p2p-cde-virtual-card
++							card={this.token}
++							cardHolderName={this.cardHolderName}
++							nameAlreadyEncoded={this.nameAlreadyEncoded}></p2p-cde-virtual-card>
++						{this.buttons ? (
++							<div>
++								<p2p-cde-card-button
++									task="print"
++									card={this.token}
++									cardHolderName={this.cardHolderName}
++									nameAlreadyEncoded={this.nameAlreadyEncoded}></p2p-cde-card-button>
++								<p2p-cde-card-button
++									task="pdf"
++									card={this.token}
++									cardHolderName={this.cardHolderName}
++									nameAlreadyEncoded={this.nameAlreadyEncoded}></p2p-cde-card-button>
++							</div>
++						) : (
++							[]
++						)}
++					</Fragment>
++				) : (
++					[]
++				)}
++			</Host>
++		)
+ 	}
+ }
+diff --git a/src/components/iframe/input/index.tsx b/src/components/iframe/input/index.tsx
+index 25896f9..8ea8922 100644
+--- a/src/components/iframe/input/index.tsx
++++ b/src/components/iframe/input/index.tsx
+@@ -1,14 +1,27 @@
+-import { Component, h } from "@stencil/core"
++import { Component, ComponentWillLoad, h, Host, State, VNode } from "@stencil/core"
++import { state } from "../../../model/State"
+ 
+ @Component({
+-	tag: "p2p-card-input",
++	tag: "p2p-cde-card-input",
+ 	styleUrl: "style.css",
+ 	scoped: true,
+ })
+-export class P2pCardInput {
+-	render() {
+-		return [
+-			<iframe width="100%" height="200" frameBorder="0" scrolling="no" src={`${process.env.uiCdeUrl}/input`}></iframe>,
+-		]
++export class P2pCardInput implements ComponentWillLoad {
++	@State() url?: string
++
++	componentWillLoad(): void {
++		state.targets.listen("change", target => (this.url = target.url))
++	}
++
++	render(): VNode | VNode[] {
++		return (
++			<Host>
++				{!this.url || window.location.href.includes(this.url) ? (
++					[]
++				) : (
++					<iframe frameBorder="0" scrolling="no" src={`${this.url}/input`} />
++				)}
++			</Host>
++		)
+ 	}
+ }
+diff --git a/src/components/iframe/input/style.css b/src/components/iframe/input/style.css
+index e69de29..c816b7a 100644
+--- a/src/components/iframe/input/style.css
++++ b/src/components/iframe/input/style.css
+@@ -0,0 +1,10 @@
++:host {
++	display: flex;
++	width: 100%;
++	height: 200px;
++}
++
++:host iframe {
++	display: flex;
++	width: 100%;
++}
+diff --git a/src/components/iframe/key-generate/index.tsx b/src/components/iframe/key-generate/index.tsx
+index 9f6f0d4..2ea4a9d 100644
+--- a/src/components/iframe/key-generate/index.tsx
++++ b/src/components/iframe/key-generate/index.tsx
+@@ -1,48 +1,51 @@
+-import { Component, h, Listen, Method, Prop } from "@stencil/core"
++import { Component, ComponentWillLoad, Element, h, Host, Listen, Method, Prop, State, VNode } from "@stencil/core"
++import { model } from "../../../model"
+ import { Message } from "./Message"
+ 
+ @Component({
+-	tag: "p2p-card-key-generate",
++	tag: "p2p-cde-card-key-generate",
+ 	styleUrl: "style.css",
+ 	scoped: true,
+ })
+-export class P2pCardKeyGenerate {
+-	timer: NodeJS.Timeout
+-	element: HTMLIFrameElement
+-	private resolve?: (message: Message) => void
++export class P2pCardKeyGenerate implements ComponentWillLoad {
++	@Element() element: HTMLElement
+ 	@Prop() parent?: string
++	@State() url?: string
++	private resolve?: (message: Message) => void
++	private timer?: number
++
++	componentWillLoad(): void {
++		model.state.targets.listen("change", target => (this.url = target.url))
++	}
+ 
+ 	@Listen("message", { target: "window" })
+-	async handleMessage(event: MessageEvent) {
++	async handleMessage(event: MessageEvent): Promise<void> {
+ 		if (event.origin == new URL(process.env.uiCdeUrl ?? "").origin) {
+-			if (Message.is(event.data))
+-				this.resolve?.(event.data)
+-			else
+-				this.resolve?.({ status: "failed", reason: "Invalid message" })
++			this.resolve?.(Message.is(event.data) ? event.data : { status: "failed", reason: "Invalid message" })
+ 			this.parent = undefined
+-			clearTimeout(this.timer)
++			window.clearTimeout(this.timer)
+ 		}
+ 	}
+ 	@Method()
+-	generate(): Promise<Message> {
++	async generate(): Promise<Message> {
+ 		//load this component behind the view, so don't show any error msg if it failed to load
+-		this.timer = setTimeout(() => {
+-			this.resolve?.({ status: "failed" })
+-		}, 3000)
+-		return new Promise(resolve => {
+-			this.resolve = resolve
+-		})
++		this.timer = window.setTimeout(() => this.resolve?.({ status: "failed" }), 3000)
++		return new Promise(resolve => (this.resolve = resolve))
+ 	}
+ 
+-	render() {
+-		return [
+-			<iframe
+-				ref={(el: HTMLIFrameElement) => (this.element = el)}
+-				width="0"
+-				height="0"
+-				frameBorder="0"
+-				scrolling="no"
+-				src={`${process.env.uiCdeUrl}/generate${this.parent ? "?parent=" + this.parent : ""}`}></iframe>,
+-		]
++	render(): VNode | VNode[] {
++		return (
++			<Host>
++				{!this.url || window.location.href.includes(this.url) ? (
++					[]
++				) : (
++					<iframe
++						frameBorder="0"
++						scrolling="no"
++						src={`${this.url}/generate${this.parent ? "?parent=" + this.parent : ""}`}
++					/>
++				)}
++			</Host>
++		)
+ 	}
+ }
+diff --git a/src/components/iframe/key-generate/style.css b/src/components/iframe/key-generate/style.css
+index e69de29..49f2897 100644
+--- a/src/components/iframe/key-generate/style.css
++++ b/src/components/iframe/key-generate/style.css
+@@ -0,0 +1,11 @@
++:host {
++	display: flex;
++	width: 0;
++	height: 0;
++	visibility: hidden;
++}
++
++:host iframe {
++	width: 0;
++	height: 0;
++}
+diff --git a/src/components/iframe/style.css b/src/components/iframe/style.css
+index eeef64e..259498d 100644
+--- a/src/components/iframe/style.css
++++ b/src/components/iframe/style.css
+@@ -1,10 +1,11 @@
+-div {
++:host div:nth-of-type(1) {
+ 	display: grid;
+ 	grid-template-columns: 2fr 1fr 1fr;
+-  column-gap: 1em;
++	column-gap: 1em;
+ 	padding: 0 1em;
+ }
+-aside {
++
++:host div:nth-of-type(2) {
+ 	display: grid;
+ 	grid-template-columns: repeat(2, 1fr);
+ 	column-gap: 2em;
+@@ -12,7 +13,7 @@ aside {
+ }
+ 
+ @media (max-width: 576px) {
+-div {
+-	grid-template-columns: 3fr 2fr 1fr;
+-}
++	:host div:nth-of-type(1) {
++		grid-template-columns: 3fr 2fr 1fr;
++	}
+ }
+diff --git a/src/components/iframe/virtual/index.tsx b/src/components/iframe/virtual/index.tsx
+index 798b3d2..c441825 100644
+--- a/src/components/iframe/virtual/index.tsx
++++ b/src/components/iframe/virtual/index.tsx
+@@ -1,36 +1,47 @@
+-import { Component, h, Prop } from "@stencil/core"
++import { Component, ComponentWillLoad, h, Host, Prop, State, VNode } from "@stencil/core"
+ import { cryptly } from "cryptly"
+ import { Error } from "gracely"
+ import { Card } from "@pax2pay/model-cde"
++import { state } from "../../../model/State"
++
+ @Component({
+-	tag: "p2p-virtual-card",
++	tag: "p2p-cde-virtual-card",
+ 	styleUrl: "style.css",
+ 	scoped: true,
+ })
+-export class P2pVirtualCard {
++export class P2pVirtualCard implements ComponentWillLoad {
+ 	@Prop({ mutable: true }) card?: Card.Token | Error
+ 	@Prop({ mutable: true }) cardHolderName?: string
+ 	// when we're loading this from a card link, mpay will have already base64 encoded the card holders name
+ 	// if the portal is displaying a card that its just created, it won't be encoded
+ 	@Prop() nameAlreadyEncoded = false
+ 	@Prop() company?: string
+-	@Prop() width: string
+-	@Prop() height: string
+-	render() {
+-		return [
+-			<iframe
+-				width={this.width}
+-				height={this.height}
+-				frameBorder="0"
+-				scrolling="no"
+-				src={
+-					`${process.env.uiCdeUrl}/image/${this.card}` +
+-					(this.cardHolderName
+-						? !this.nameAlreadyEncoded
+-							? `?ch=${cryptly.Base64.encode(this.cardHolderName, "url")}`
+-							: `?ch=${this.cardHolderName}`
+-						: "")
+-				}></iframe>,
+-		]
++	@State() url?: string
++
++	componentWillLoad(): void {
++		state.targets.listen("change", target => (this.url = target.url))
++	}
++
++	render(): VNode | VNode[] {
++		return (
++			<Host>
++				{!this.url || window.location.href.includes(this.url) ? (
++					[]
++				) : (
++					<iframe
++						frameBorder="0"
++						scrolling="no"
++						src={
++							`${this.url}/image/${this.card}` +
++							(this.cardHolderName
++								? !this.nameAlreadyEncoded
++									? `?ch=${cryptly.Base64.encode(this.cardHolderName, "url")}`
++									: `?ch=${this.cardHolderName}`
++								: "")
++						}
++					/>
++				)}
++			</Host>
++		)
+ 	}
+ }
+diff --git a/src/components/iframe/virtual/style.css b/src/components/iframe/virtual/style.css
+index 1fddf25..09d4ae9 100644
+--- a/src/components/iframe/virtual/style.css
++++ b/src/components/iframe/virtual/style.css
+@@ -1,5 +1,11 @@
+-
+-iframe {
++:host {
++	display: flex;
++	/* width 600px? */
+ 	width: 100%;
++	height: 350px;
+ }
+ 
++:host iframe {
++	display: flex;
++	width: 100%;
++}
+diff --git a/src/components/portal/index.tsx b/src/components/portal/index.tsx
+deleted file mode 100644
+index 9ed3bd5..0000000
+--- a/src/components/portal/index.tsx
++++ /dev/null
+@@ -1,25 +0,0 @@
+-import { Component, h } from "@stencil/core"
+-import { App } from "smoothly"
+-
+-@Component({
+-	tag: "template-portal",
+-	styleUrl: "style.css",
+-	shadow: true,
+-})
+-export class AppRoot {
+-	render() {
+-		return (
+-			<App label="Smoothly App Starter">
+-				<smoothly-trigger slot="header" type="link" name="logout">
+-					<smoothly-icon toolTip={"Log out"} name="log-out" size="medium"></smoothly-icon>
+-				</smoothly-trigger>
+-				<smoothly-room label="Home" path="/">
+-					<app-home />
+-				</smoothly-room>
+-				<smoothly-room label="About" path="about">
+-					<p>Template for smoothly app!</p>
+-				</smoothly-room>
+-			</App>
+-		)
+-	}
+-}
+diff --git a/src/components/portal/style.css b/src/components/portal/style.css
+deleted file mode 100644
+index a8fb2e3..0000000
+--- a/src/components/portal/style.css
++++ /dev/null
+@@ -1,15 +0,0 @@
+-header {
+-  background: #5851ff;
+-  color: white;
+-  height: 56px;
+-  display: flex;
+-  align-items: center;
+-  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+-}
+-
+-h1 {
+-  font-size: 1.4rem;
+-  font-weight: 500;
+-  color: #fff;
+-  padding: 0 12px;
+-}
+diff --git a/src/index.ts b/src/index.ts
+index 77fc5eb..d9c931d 100644
+--- a/src/index.ts
++++ b/src/index.ts
+@@ -1,2 +1,2 @@
+ export { Components, JSX } from "./components"
+-import "smoothly"
++export { model as cde } from "./model"
+diff --git a/src/model/State/Targets.ts b/src/model/State/Targets.ts
+new file mode 100644
+index 0000000..e7c98d4
+--- /dev/null
++++ b/src/model/State/Targets.ts
+@@ -0,0 +1,41 @@
++export class Targets {
++	private urls: { [name in Targets.Environment]: string } = {
++		local: "http://localhost:3334",
++		development: "https://cde.pax2pay.dev",
++		production: "https://cde.pax2pay.com",
++	}
++	private environment: Targets.Environment
++	private subscribers: Targets.Subscribers = {}
++	private constructor(local: boolean) {
++		this.environment = !local ? "production" : "development"
++	}
++	get(): Targets.Target {
++		return { environment: this.environment, url: this.urls[this.environment] }
++	}
++	change(environment: Targets.Environment, url?: string): void {
++		if (url)
++			this.urls[environment] = url
++		this.environment = environment
++		this.subscribers.change?.forEach(callback => callback(this.get()))
++	}
++	listen<T extends keyof Targets.Events>(
++		event: T,
++		callback: Targets.Events[T],
++		options?: { lazy: boolean }
++	): Targets.Target {
++		this.subscribers[event]?.push(callback) ?? (this.subscribers[event] = [callback])
++		options?.lazy !== true && this.subscribers[event]?.forEach(callback => callback(this.get()))
++		return this.get()
++	}
++	static create(local: boolean): Targets {
++		return new this(local)
++	}
++}
++export namespace Targets {
++	export type Environment = "local" | "development" | "production"
++	export type Target = { [environment in Environment]: { environment: environment; url: string } }[Environment]
++	export interface Events {
++		change: (target: Target) => unknown
++	}
++	export type Subscribers = { [event in keyof Events]?: Events[event][] }
++}
+diff --git a/src/model/State/index.ts b/src/model/State/index.ts
+new file mode 100644
+index 0000000..91df577
+--- /dev/null
++++ b/src/model/State/index.ts
+@@ -0,0 +1,18 @@
++import { Targets as StateTargets } from "./Targets"
++
++export class State {
++	readonly targets: StateTargets
++	private constructor(local: boolean) {
++		this.targets = StateTargets.create(local)
++	}
++	static create(): State {
++		const url = new URL(window.location.href)
++		return new this(
++			url.host.startsWith("localhost") || url.host.startsWith("127.0.0.1") || url.host.startsWith("192.168.")
++		)
++	}
++}
++export const state = State.create()
++export namespace State {
++	export import Targets = StateTargets
++}
+diff --git a/src/model/index.ts b/src/model/index.ts
+new file mode 100644
+index 0000000..ea5cc69
+--- /dev/null
++++ b/src/model/index.ts
+@@ -0,0 +1,6 @@
++import { State as ModelState, state as modelState } from "./State"
++
++export namespace model {
++	export import State = ModelState
++	export const state = modelState
++}
+diff --git a/stencil.config.ts b/stencil.config.ts
+index d0c716b..94d6af1 100644
+--- a/stencil.config.ts
++++ b/stencil.config.ts
+@@ -3,16 +3,27 @@ import { Config } from "@stencil/core"
+ // https://stenciljs.com/docs/config
+ 
+ export const config: Config = {
++	namespace: "p2p-cde",
++	sourceMap: true,
++	tsconfig: "tsconfig.json",
+ 	globalStyle: "src/global/app.css",
+ 	globalScript: "src/global/app.ts",
+ 	taskQueue: "async",
++	devServer: {
++		openBrowser: false,
++	},
+ 	outputTargets: [
++		{
++			type: "dist-custom-elements-bundle",
++		},
++		{
++			type: "dist",
++			esmLoaderPath: "../loader",
++		},
+ 		{
+ 			type: "www",
++			serviceWorker: null, // disable service workers
+ 			buildDir: "",
+-			// comment the following line to disable service workers in production
+-			serviceWorker: null,
+-			baseUrl: "https://myapp.local/",
+ 		},
+ 	],
+ }

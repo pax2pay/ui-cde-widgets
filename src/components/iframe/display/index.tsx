@@ -1,28 +1,38 @@
-import { Component, h, Prop } from "@stencil/core"
+import { Component, ComponentWillLoad, h, Host, Prop, State, VNode } from "@stencil/core"
 import { Error } from "gracely"
 import { Card } from "@pax2pay/model-cde"
+import { model } from "../../../model"
 
 @Component({
-	tag: "p2p-card-display",
+	tag: "p2p-cde-card-display",
 	styleUrl: "style.css",
 	scoped: true,
 })
-export class P2pCardDisplay {
+export class P2pCardDisplay implements ComponentWillLoad {
 	@Prop() card?: Card.Token | Error
 	@Prop() cardPart: "pan" | "csc" | "expires"
 	@Prop() format?: "plain" | "labelled"
 	@Prop() feature?: "copy"
-	render() {
+	@State() url?: string
+
+	componentWillLoad(): void {
+		model.state.targets.listen("change", target => (this.url = target.url))
+	}
+
+	render(): VNode | VNode[] {
 		return (
-			<iframe
-				width="100%"
-				height="51"
-				frameBorder="0"
-				scrolling="no"
-				allow={`clipboard-write ${process.env.uiCdeUrl}`}
-				src={`${process.env.uiCdeUrl}/display/${this.card}/${this.cardPart}${
-					this.format ? "?format=" + this.format : ""
-				}`}></iframe>
+			<Host>
+				{!this.url || window.location.href.includes(this.url) ? (
+					[]
+				) : (
+					<iframe
+						frameBorder="0"
+						scrolling="no"
+						allow={`clipboard-write ${this.url}`}
+						src={`${this.url}/display/${this.card}/${this.cardPart}${this.format ? "?format=" + this.format : ""}`}
+					/>
+				)}
+			</Host>
 		)
 	}
 }

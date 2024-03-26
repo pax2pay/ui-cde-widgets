@@ -1,2 +1,2 @@
 export { Components, JSX } from "./components"
-import "smoothly"
+export { model as cde } from "./model"

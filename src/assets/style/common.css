@@ -235,7 +235,7 @@ smoothly-selector>main {
 	white-space: nowrap;
 }
 
-p2p-user-table-row-expansion smoothly-selector>main {
+p2p-cde-user-table-row-expansion smoothly-selector>main {
 	padding: 0.4rem;
 }
 
@@ -291,29 +291,29 @@ svg:hover {
 	cursor: pointer;
 }
 
-p2p-display-schedule smoothly-table.sc-p2p-payment-schedule-table,
+p2p-cde-display-schedule smoothly-table.sc-p2p-cde-payment-schedule-table,
 .sc-smoothly-table-h {
 	border: 2px solid rgb(var(--smoothly-dark-color), 0.5);
 }
 
-p2p-display-schedule .sc-p2p-payment-schedule-table-row-h {
+p2p-cde-display-schedule .sc-p2p-cde-payment-schedule-table-row-h {
 	border: 1px solid rgb(var(--smoothly-dark-color), 0.5)
 }
 
-p2p-pdf-button>smoothly-submit>button,
-p2p-print-button>smoothly-submit>button {
+p2p-cde-pdf-button>smoothly-submit>button,
+p2p-cde-print-button>smoothly-submit>button {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
 	margin: auto;
 }
 
-p2p-payment-batch-create button {
+p2p-cde-payment-batch-create button {
 	color: rgb(var(--smoothly-default-color));
 }
 
-p2p-payment-batch-item smoothly-table.sc-p2p-schedule-table,
-p2p-payment-batch-item .sc-p2p-table-row-h:hover {
+p2p-cde-payment-batch-item smoothly-table.sc-p2p-cde-schedule-table,
+p2p-cde-payment-batch-item .sc-p2p-cde-table-row-h:hover {
 	background-color: transparent;
 }
 
@@ -326,7 +326,7 @@ smoothly-notification>p {
 	justify-content: center;
 }
 
-p2p-card-create main.sc-p2p-scheduled-payment-table {
+p2p-cde-card-create main.sc-p2p-cde-scheduled-payment-table {
 	column-gap: 3em;
 }
 
@@ -420,7 +420,7 @@ smoothly-input-month smoothly-icon[fill=solid] {
 	stroke: rgb(var(--smoothly-default-contrast));
 }
 
-p2p-account-statement-table smoothly-input {
+p2p-cde-account-statement-table smoothly-input {
 	white-space: nowrap;
 }
 
@@ -435,14 +435,14 @@ smoothly-button a {
 	padding: 0;
 }
 
-p2p-card-single svg {
+p2p-cde-card-single svg {
 	right: initial;
 	border: none;
 	border-top: none;
 	box-shadow: none;
 }
 
-p2p-payment-batch-item .sc-smoothly-table-expandable-cell-h smoothly-icon.sc-smoothly-table-expandable-cell {
+p2p-cde-payment-batch-item .sc-smoothly-table-expandable-cell-h smoothly-icon.sc-smoothly-table-expandable-cell {
 	width: 1.2rem;
 }
 
@@ -450,40 +450,40 @@ smoothly-trigger svg {
 	vertical-align: inherit;
 }
 
-p2p-user-table-row>.sc-smoothly-dialog-h>main.sc-smoothly-dialog {
+p2p-cde-user-table-row>.sc-smoothly-dialog-h>main.sc-smoothly-dialog {
 	padding: 2rem;
 	display: grid;
 	text-align: center;
 	margin: 25rem auto;
 }
 
-p2p-user-table-row>.sc-smoothly-dialog-h>main.sc-smoothly-dialog>div {
+p2p-cde-user-table-row>.sc-smoothly-dialog-h>main.sc-smoothly-dialog>div {
 	display: flex;
 	justify-content: center;
 }
 
-p2p-user-table-row>.sc-smoothly-dialog-h>header.sc-smoothly-dialog {
+p2p-cde-user-table-row>.sc-smoothly-dialog-h>header.sc-smoothly-dialog {
 	display: none;
 }
 
-p2p-user-table-row[hidden].sc-p2p-user-table>tr>td>div.slot-detail.sc-smoothly-table-expandable-row {
+p2p-cde-user-table-row[hidden].sc-p2p-cde-user-table>tr>td>div.slot-detail.sc-smoothly-table-expandable-row {
 	box-shadow: none;
 }
 
-p2p-account-statement-table .sc-smoothly-table-expandable-row-h smoothly-icon.sc-smoothly-table-expandable-row {
+p2p-cde-account-statement-table .sc-smoothly-table-expandable-row-h smoothly-icon.sc-smoothly-table-expandable-row {
 	margin-top: 0.75rem;
 	margin-left: 1.5rem;
 }
 
-p2p-user-batch-item input.sc-smoothly-input {
+p2p-cde-user-batch-item input.sc-smoothly-input {
 	padding: 0.75rem;
 }
 
-p2p-user-table .sc-smoothly-table-expandable-row-h smoothly-icon.sc-smoothly-table-expandable-row {
+p2p-cde-user-table .sc-smoothly-table-expandable-row-h smoothly-icon.sc-smoothly-table-expandable-row {
 	margin-top: 1rem;
 }
 
-p2p-card-table-row>.sc-smoothly-table-expandable-row-h smoothly-icon.sc-smoothly-table-expandable-row {
+p2p-cde-card-table-row>.sc-smoothly-table-expandable-row-h smoothly-icon.sc-smoothly-table-expandable-row {
 	margin-top: 2rem;
 }
 
@@ -509,7 +509,7 @@ smoothly-button[disabled] {
 	pointer-events: none;
 }
 
-p2p-meta-summary>smoothly-input>div>input {
+p2p-cde-meta-summary>smoothly-input>div>input {
 	text-overflow: ellipsis;
 	overflow: hidden;
 	white-space: nowrap;
@@ -523,7 +523,7 @@ smoothly-input:not([disabled])>div>input {
 	cursor: text;
 }
 
-p2p-card-table-filter div>smoothly-icon.sc-p2p-search-input {
+p2p-cde-card-table-filter div>smoothly-icon.sc-p2p-cde-search-input {
 	display: none;
 }
 
@@ -531,12 +531,12 @@ smoothly-button>button {
 	height: 100%;
 }
 
-p2p-card-table-row [open].sc-smoothly-table-expandable-row-h {
+p2p-cde-card-table-row [open].sc-smoothly-table-expandable-row-h {
 	z-index: 0;
 }
 
-smoothly-selector.sc-p2p-balance-selector,
-smoothly-selector.sc-p2p-account-selector {
+smoothly-selector.sc-p2p-cde-balance-selector,
+smoothly-selector.sc-p2p-cde-account-selector {
 	width: 100%;
 }
 
@@ -544,11 +544,11 @@ smoothly-selector.sc-p2p-account-selector {
 	height: inherit;
 }
 
-smoothly-input-date-range.sc-p2p-account-statement-filter label {
+smoothly-input-date-range.sc-p2p-cde-account-statement-filter label {
 	display: none;
 }
 
-smoothly-input-date-range.sc-p2p-account-statement-filter input {
+smoothly-input-date-range.sc-p2p-cde-account-statement-filter input {
 	padding: 0.75rem;
 }
 
@@ -574,7 +574,7 @@ smoothly-spinner svg {
 	box-shadow: none !important;
 }
 
-smoothly-button.sc-p2p-user-view {
+smoothly-button.sc-p2p-cde-user-view {
 	padding: 0;
 }
 
