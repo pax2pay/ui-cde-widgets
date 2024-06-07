@@ -1,6 +1,6 @@
-import { Component, ComponentWillLoad, h, Host, Prop, VNode } from "@stencil/core"
+import { Component, h, Host, Prop, VNode } from "@stencil/core"
 import { Error } from "gracely"
-import { Card } from "@pax2pay/model-cde"
+import { pax2pay } from "@pax2pay/model-cde"
 import { url } from "../url"
 
 @Component({
@@ -8,27 +8,23 @@ import { url } from "../url"
 	styleUrl: "style.css",
 	scoped: true,
 })
-export class Display implements ComponentWillLoad {
-	@Prop() card?: Card.Token | Error
-	@Prop() cardPart: "pan" | "csc" | "expires"
-	@Prop() format?: "plain" | "labelled"
+export class Display {
+	@Prop() card?: pax2pay.cde.Card.Token | Error
+	@Prop() property: "pan" | "csc" | "expires" = "pan"
+	@Prop() labelled?: boolean
 	@Prop() feature?: "copy"
-
-	componentWillLoad(): void {
-		// model.state.targets.listen("change", target => (this.url = target.url))
-	}
 
 	render(): VNode | VNode[] {
 		return (
 			<Host>
-				{window.location.href.includes(url) ? (
+				{window.location.href.includes(url.ui) ? (
 					[]
 				) : (
 					<iframe
 						frameBorder="0"
 						scrolling="no"
-						allow={`clipboard-write ${url}`}
-						src={`${url}/display/${this.card}/${this.cardPart}${this.format ? "?format=" + this.format : ""}`}
+						allow={`clipboard-write ${url.ui}`}
+						src={`${url.ui}/display/${this.card}/${this.property}${this.labelled ? "?format=labelled" : ""}`}
 					/>
 				)}
 			</Host>

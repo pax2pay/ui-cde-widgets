@@ -10,7 +10,7 @@ export class Input {
 	render(): VNode | VNode[] {
 		return (
 			<Host>
-				{window.location.href.includes(url) ? [] : <iframe frameBorder="0" scrolling="no" src={`${url}/input`} />}
+				{window.location.href.includes(url.ui) ? [] : <iframe frameBorder="0" scrolling="no" src={`${url.ui}/input`} />}
 			</Host>
 		)
 	}

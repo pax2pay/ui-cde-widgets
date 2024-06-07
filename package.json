@@ -40,12 +40,13 @@
 		"generate": "stencil generate"
 	},
 	"dependencies": {
-		"@pax2pay/model-cde": "^0.0.61",
+		"@pax2pay/model-cde": "github:pax2pay/model-cde#public-key-improvements",
 		"gracely": "^2.0.8",
 		"isly": "^0.1.15",
-		"smoothly": "^0.3.65"
+		"smoothly": "^1.0.0-alpha.228"
 	},
 	"devDependencies": {
+		"@stencil/core": "4.17.1",
 		"@types/jest": "^29.5.12",
 		"@typescript-eslint/eslint-plugin": "7.3.1",
 		"@typescript-eslint/parser": "7.3.1",

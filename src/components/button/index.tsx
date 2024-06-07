@@ -20,14 +20,14 @@ export class Button {
 	render(): VNode | VNode[] {
 		return (
 			<Host>
-				{window.location.href.includes(url) ? (
+				{window.location.href.includes(url.ui) ? (
 					[]
 				) : (
 					<iframe
 						frameBorder="0"
 						scrolling="no"
 						src={
-							`${url}/${this.task}/${this.card}` +
+							`${url.ui}/${this.task}/${this.card}` +
 							(this.holder
 								? !this.nameAlreadyEncoded
 									? `?ch=${cryptly.Base64.encode(this.holder, "url")}`

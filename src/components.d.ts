@@ -7,8 +7,12 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { Card } from "@pax2pay/model-cde";
 import { Error } from "gracely";
+import { pax2pay } from "./pax2pay";
+import { smoothly } from "smoothly";
 export { Card } from "@pax2pay/model-cde";
 export { Error } from "gracely";
+export { pax2pay } from "./pax2pay";
+export { smoothly } from "smoothly";
 export namespace Components {
     interface P2pCdeButton {
         "card"?: Card.Token | Error;
@@ -17,17 +21,18 @@ export namespace Components {
         "task": "print" | "pdf";
     }
     interface P2pCdeDemo {
+        "card"?: pax2pay.Card | string;
     }
     interface P2pCdeDisplay {
         "card"?: Card.Token | Error;
-        "cardPart": "pan" | "csc" | "expires";
         "feature"?: "copy";
-        "format"?: "plain" | "labelled";
+        "labelled"?: boolean;
+        "property": "pan" | "csc" | "expires";
     }
     interface P2pCdeInput {
     }
-    interface P2pCdeKeyGenerate {
-        "getPublicKey": () => Promise<string | false>;
+    interface P2pCdeKeyGenerator {
+        "generate": () => Promise<string | undefined>;
     }
     interface P2pVirtualCard {
         "card"?: Card.Token | Error;
@@ -38,6 +43,10 @@ export namespace Components {
         "width": string;
     }
 }
+export interface P2pCdeDemoCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLP2pCdeDemoElement;
+}
 declare global {
     interface HTMLP2pCdeButtonElement extends Components.P2pCdeButton, HTMLStencilElement {
     }
@@ -45,7 +54,18 @@ declare global {
         prototype: HTMLP2pCdeButtonElement;
         new (): HTMLP2pCdeButtonElement;
     };
+    interface HTMLP2pCdeDemoElementEventMap {
+        "smoothlyNotify": smoothly.Notice;
+    }
     interface HTMLP2pCdeDemoElement extends Components.P2pCdeDemo, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLP2pCdeDemoElementEventMap>(type: K, listener: (this: HTMLP2pCdeDemoElement, ev: P2pCdeDemoCustomEvent<HTMLP2pCdeDemoElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLP2pCdeDemoElementEventMap>(type: K, listener: (this: HTMLP2pCdeDemoElement, ev: P2pCdeDemoCustomEvent<HTMLP2pCdeDemoElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLP2pCdeDemoElement: {
         prototype: HTMLP2pCdeDemoElement;
@@ -63,11 +83,11 @@ declare global {
         prototype: HTMLP2pCdeInputElement;
         new (): HTMLP2pCdeInputElement;
     };
-    interface HTMLP2pCdeKeyGenerateElement extends Components.P2pCdeKeyGenerate, HTMLStencilElement {
+    interface HTMLP2pCdeKeyGeneratorElement extends Components.P2pCdeKeyGenerator, HTMLStencilElement {
     }
-    var HTMLP2pCdeKeyGenerateElement: {
-        prototype: HTMLP2pCdeKeyGenerateElement;
-        new (): HTMLP2pCdeKeyGenerateElement;
+    var HTMLP2pCdeKeyGeneratorElement: {
+        prototype: HTMLP2pCdeKeyGeneratorElement;
+        new (): HTMLP2pCdeKeyGeneratorElement;
     };
     interface HTMLP2pVirtualCardElement extends Components.P2pVirtualCard, HTMLStencilElement {
     }
@@ -80,7 +100,7 @@ declare global {
         "p2p-cde-demo": HTMLP2pCdeDemoElement;
         "p2p-cde-display": HTMLP2pCdeDisplayElement;
         "p2p-cde-input": HTMLP2pCdeInputElement;
-        "p2p-cde-key-generate": HTMLP2pCdeKeyGenerateElement;
+        "p2p-cde-key-generator": HTMLP2pCdeKeyGeneratorElement;
         "p2p-virtual-card": HTMLP2pVirtualCardElement;
     }
 }
@@ -92,16 +112,18 @@ declare namespace LocalJSX {
         "task"?: "print" | "pdf";
     }
     interface P2pCdeDemo {
+        "card"?: pax2pay.Card | string;
+        "onSmoothlyNotify"?: (event: P2pCdeDemoCustomEvent<smoothly.Notice>) => void;
     }
     interface P2pCdeDisplay {
         "card"?: Card.Token | Error;
-        "cardPart"?: "pan" | "csc" | "expires";
         "feature"?: "copy";
-        "format"?: "plain" | "labelled";
+        "labelled"?: boolean;
+        "property"?: "pan" | "csc" | "expires";
     }
     interface P2pCdeInput {
     }
-    interface P2pCdeKeyGenerate {
+    interface P2pCdeKeyGenerator {
     }
     interface P2pVirtualCard {
         "card"?: Card.Token | Error;
@@ -116,7 +138,7 @@ declare namespace LocalJSX {
         "p2p-cde-demo": P2pCdeDemo;
         "p2p-cde-display": P2pCdeDisplay;
         "p2p-cde-input": P2pCdeInput;
-        "p2p-cde-key-generate": P2pCdeKeyGenerate;
+        "p2p-cde-key-generator": P2pCdeKeyGenerator;
         "p2p-virtual-card": P2pVirtualCard;
     }
 }
@@ -128,7 +150,7 @@ declare module "@stencil/core" {
             "p2p-cde-demo": LocalJSX.P2pCdeDemo & JSXBase.HTMLAttributes<HTMLP2pCdeDemoElement>;
             "p2p-cde-display": LocalJSX.P2pCdeDisplay & JSXBase.HTMLAttributes<HTMLP2pCdeDisplayElement>;
             "p2p-cde-input": LocalJSX.P2pCdeInput & JSXBase.HTMLAttributes<HTMLP2pCdeInputElement>;
-            "p2p-cde-key-generate": LocalJSX.P2pCdeKeyGenerate & JSXBase.HTMLAttributes<HTMLP2pCdeKeyGenerateElement>;
+            "p2p-cde-key-generator": LocalJSX.P2pCdeKeyGenerator & JSXBase.HTMLAttributes<HTMLP2pCdeKeyGeneratorElement>;
             "p2p-virtual-card": LocalJSX.P2pVirtualCard & JSXBase.HTMLAttributes<HTMLP2pVirtualCardElement>;
         }
     }
